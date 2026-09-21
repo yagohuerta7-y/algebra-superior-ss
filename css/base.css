@@ -1,0 +1,179 @@
+/* Reset y estilos base compartidos por todo el sitio */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-base);
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: background-color var(--duracion-transicion) ease, color var(--duracion-transicion) ease;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+  color: var(--color-texto);
+}
+
+h1 {
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+}
+
+h2 {
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  margin-top: var(--espacio-5);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+}
+
+p {
+  margin: 0 0 var(--espacio-2);
+}
+
+a {
+  color: var(--color-secundario);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--color-primario);
+}
+
+ul,
+ol {
+  padding-left: 1.3em;
+}
+
+/* Foco visible consistente en todo control interactivo: nunca se suprime sin reemplazo */
+:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Enlace "saltar al contenido" */
+.saltar-enlace {
+  position: absolute;
+  left: var(--espacio-2);
+  top: -3rem;
+  background: var(--color-primario);
+  color: var(--color-sobre-primario);
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-borde-chico);
+  z-index: 100;
+  transition: top var(--duracion-transicion) ease;
+}
+
+.saltar-enlace:focus {
+  top: var(--espacio-2);
+}
+
+/* Layout compartido */
+.encabezado-sitio {
+  border-bottom: 1px solid var(--color-borde);
+  background-color: var(--color-fondo-alterno);
+}
+
+.barra-encabezado {
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--espacio-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2);
+}
+
+.marca-sitio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-decoration: none;
+  color: var(--color-texto);
+}
+
+.marca-sitio strong {
+  font-size: 1.05rem;
+  color: var(--color-primario);
+}
+
+.marca-sitio span {
+  font-size: 0.8rem;
+  color: var(--color-texto-tenue);
+}
+
+main {
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--espacio-3) var(--espacio-2) var(--espacio-5);
+}
+
+footer.pie-sitio {
+  border-top: 1px solid var(--color-borde);
+  color: var(--color-texto-tenue);
+  font-size: 0.85rem;
+}
+
+.pie-sitio > div {
+  max-width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--espacio-3) var(--espacio-2);
+}
+
+/* Botón de alternar tema claro/oscuro */
+.boton-tema {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  color: var(--color-texto);
+  border-radius: var(--radio-borde-chico);
+  padding: 0.5em 0.8em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.boton-tema:hover {
+  border-color: var(--color-primario);
+}
+
+/* Movimiento reducido: colapsar animaciones y transiciones para quien lo prefiera */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Álgebra Superior — Material de apoyo</title>
+<meta name="description" content="Material interactivo de apoyo para Álgebra Superior, Facultad de Ciencias, UNAM.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<main id="contenido-principal">
+  <h1>Temas del curso</h1>
+  <p>
+    Este sitio reúne material interactivo de apoyo para el curso de Álgebra Superior
+    (Licenciatura en Matemáticas Aplicadas y Computación, UNAM). Los temas se irán
+    agregando a lo largo del semestre; por ahora hay uno disponible.
+  </p>
+
+  <ul id="lista-temas" class="rejilla-temas" aria-label="Lista de temas del curso">
+    <!-- Las tarjetas se generan dinámicamente desde js/temas.js -->
+  </ul>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="js/temas.js"></script>
+<script src="js/comun.js"></script>
+</body>
+</html>

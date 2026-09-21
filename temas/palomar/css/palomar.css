@@ -1,0 +1,30 @@
+/* Estilos específicos del tema "Principio del palomar" */
+
+/* Las fórmulas en modo display de KaTeX pueden ser más anchas que una
+   pantalla de celular: permitir scroll horizontal solo en la fórmula,
+   nunca en la página completa. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+.introduccion-tema {
+  color: var(--color-texto-tenue);
+  font-size: 1.05rem;
+}
+
+.seccion-tema {
+  scroll-margin-top: 4rem;
+}
+
+.formula-dinamica {
+  text-align: center;
+  margin: var(--espacio-2) 0;
+  min-height: 2.4rem;
+}
+
+.contador-problemas {
+  color: var(--color-texto-tenue);
+  font-size: 0.9rem;
+}

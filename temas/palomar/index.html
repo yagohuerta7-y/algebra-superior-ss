@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principio del palomar — Álgebra Superior</title>
+<meta name="description" content="Intuición, demostración y actividades interactivas sobre el principio del palomar.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="css/palomar.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#intuicion">Intuición</a></li>
+    <li><a href="#demostracion">Demostración</a></li>
+    <li><a href="#actividad1">Actividad 1</a></li>
+    <li><a href="#actividad2">Actividad 2</a></li>
+    <li><a href="#actividad3">Actividad 3</a></li>
+    <li><a href="#quiz">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Principio del palomar</h1>
+  <p class="introduccion-tema">
+    Palomas, palomares, y una idea de conteo tan simple como poderosa: la base de muchos argumentos
+    de existencia en matemáticas y ciencias de la computación.
+  </p>
+
+  <!-- ===================== 1. INTUICIÓN ===================== -->
+  <section id="intuicion" class="seccion-tema">
+    <h2>1. Intuición</h2>
+    <p>
+      Imagina un grupo de palomas que deben guardarse en un conjunto de palomares, de modo que cada
+      paloma entra exactamente en un palomar (ninguna se queda afuera ni se reparte entre dos). Si el
+      número de palomas es mayor que el número de palomares disponibles, es imposible que cada palomar
+      reciba, cuando mucho, una sola paloma: al menos un palomar tendrá que alojar a dos o más. Esta
+      observación, de sentido común, es un principio de conteo con consecuencias profundas en
+      combinatoria, teoría de números y ciencias de la computación.
+    </p>
+    <p>
+      Formalmente, «meter cada paloma en un palomar» es asignar a cada paloma un único palomar, es
+      decir, definir una función del conjunto de palomas al conjunto de palomares. Y «ningún palomar
+      recibe dos o más palomas» es precisamente decir que esa función es inyectiva.
+    </p>
+
+    <div class="caja caja-enunciado">
+      <h3>Principio del palomar (versión básica)</h3>
+      <p>
+        Sean $A$ y $B$ conjuntos finitos y $f : A \to B$ una función. Si $|A| > |B|$, entonces $f$ no
+        es inyectiva.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>Recordatorio: función inyectiva</h3>
+      <p>
+        Una función $f : A \to B$ es <strong>inyectiva</strong> (o «uno a uno») si para cualesquiera
+        $x_1, x_2 \in A$:
+      </p>
+      <p>$$ f(x_1) = f(x_2) \implies x_1 = x_2. $$</p>
+      <p>Equivalentemente, de forma contrapositiva:</p>
+      <p>$$ x_1 \neq x_2 \implies f(x_1) \neq f(x_2). $$</p>
+    </div>
+
+    <p>
+      En el lenguaje de palomas y palomares: $f$ asigna a cada paloma $x \in A$ el palomar $f(x) \in B$
+      donde se aloja. Que $f$ sea inyectiva significa que dos palomas distintas nunca comparten
+      palomar. El principio del palomar afirma que eso es imposible en cuanto hay más palomas que
+      palomares.
+    </p>
+  </section>
+
+  <!-- ===================== 2. DEMOSTRACIÓN ===================== -->
+  <section id="demostracion" class="seccion-tema">
+    <h2>2. Demostración</h2>
+    <p>
+      Conviene reformular el principio en su forma contrapositiva, lógicamente equivalente al
+      enunciado original y más directa de probar:
+    </p>
+
+    <div class="caja caja-definicion">
+      <h3>Contrapositiva</h3>
+      <p>
+        Sean $A, B$ conjuntos finitos y $f : A \to B$. Si $f$ es inyectiva, entonces $|A| \le |B|$.
+      </p>
+    </div>
+
+    <p><strong>Demostración.</strong> Sea $f : A \to B$ inyectiva, con $A, B$ finitos. Como $A$ es
+    finito, escribimos $A = \{a_1, \dots, a_n\}$ con $n = |A|$ elementos distintos. Consideremos las
+    imágenes $f(a_1), \dots, f(a_n) \in B$.</p>
+
+    <p>Como $f$ es inyectiva, $a_i \neq a_j \implies f(a_i) \neq f(a_j)$; luego los $n$ valores
+    $f(a_1), \dots, f(a_n)$ son todos distintos entre sí. Es decir,</p>
+
+    <p>$$ \{f(a_1), \dots, f(a_n)\} \subseteq B, \qquad |\{f(a_1), \dots, f(a_n)\}| = n. $$</p>
+
+    <p>Como todo subconjunto de un conjunto finito $B$ tiene a lo más $|B|$ elementos,</p>
+
+    <p>$$ n = |\{f(a_1), \dots, f(a_n)\}| \le |B|. $$</p>
+
+    <p>Es decir, $|A| = n \le |B|$. $\blacksquare$</p>
+
+    <p>
+      De aquí el principio original se sigue de inmediato: si $|A| > |B|$, no puede darse
+      $|A| \le |B|$; por la contrapositiva, tampoco puede darse que $f$ sea inyectiva.
+    </p>
+
+    <div class="caja caja-advertencia">
+      <h3>¿Por qué es esencial la hipótesis de finitud?</h3>
+      <p>
+        El paso clave de la demostración usa que «todo subconjunto de un conjunto finito $B$ tiene a
+        lo más $|B|$ elementos» — algo falso, en general, para conjuntos infinitos.
+      </p>
+      <p>
+        Ejemplo clásico: sean $A = \mathbb{N} = \{0,1,2,\dots\}$ y $B = \mathbb{N}\setminus\{0\} =
+        \{1,2,3,\dots\}$, un subconjunto <strong>propio</strong> de $A$ (es decir, $B \subsetneq A$).
+        Si $A$ y $B$ fueran finitos, que $B$ sea subconjunto propio de $A$ forzaría $|B| < |A|$, y por
+        el principio del palomar ninguna función $f : A \to B$ podría ser inyectiva. Sin embargo, la
+        función
+      </p>
+      <p>$$ f : \mathbb{N} \to \mathbb{N}\setminus\{0\}, \qquad f(n) = n+1 $$</p>
+      <p>
+        es inyectiva: $f(n) = f(m) \implies n+1 = m+1 \implies n = m$. De hecho $f$ es biyectiva sobre
+        $B$. Existe entonces una función inyectiva de $A = \mathbb{N}$ hacia un subconjunto propio de
+        sí mismo — algo que el principio del palomar prohíbe entre conjuntos finitos. Que un conjunto
+        infinito pueda estar en biyección con un subconjunto propio de sí mismo es, precisamente, una
+        característica de la infinitud, y es la razón por la que la hipótesis de finitud no puede
+        eliminarse del principio.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 3. ACTIVIDAD 1 ===================== -->
+  <section id="actividad1" class="seccion-tema">
+    <h2>3. Actividad interactiva: palomas y palomares</h2>
+    <p>
+      Elige cuántas palomas ($n$) y cuántos palomares ($m$) quieres usar, y asigna cada paloma a un
+      palomar con el menú de selección. La interfaz te mostrará en vivo si la asignación resultante es
+      una función inyectiva.
+    </p>
+
+    <div id="act1-control-nm"></div>
+
+    <div id="act1-banner-imposible" class="banner-imposible" role="note" hidden></div>
+
+    <h3>Asignación de cada paloma</h3>
+    <ul id="act1-lista-palomas" class="lista-palomas"></ul>
+
+    <div class="grupo-botones">
+      <button id="act1-boton-aleatorio" type="button" class="boton boton-secundario">Asignación aleatoria</button>
+      <button id="act1-boton-reiniciar" type="button" class="boton boton-secundario">Reiniciar</button>
+    </div>
+
+    <h3>Estado de los palomares</h3>
+    <div id="act1-rejilla-palomares" class="rejilla-palomares"></div>
+
+    <p id="act1-resumen" class="aviso aviso-info" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- ===================== 4. ACTIVIDAD 2 ===================== -->
+  <section id="actividad2" class="seccion-tema">
+    <h2>4. Actividad interactiva: la forma general</h2>
+    <p>
+      Si $n$ palomas se reparten entre $m$ palomares, sin importar cómo se haga el reparto, algún
+      palomar tendrá al menos $\lceil n/m \rceil$ palomas (el «techo», o redondeo hacia arriba, de
+      $n/m$). Elige $n$ y $m$, y compara el peor caso equilibrado contra un reparto al azar.
+    </p>
+
+    <div id="act2-control-nm"></div>
+
+    <div id="act2-formula-techo" class="formula-dinamica" aria-hidden="true"></div>
+
+    <div class="grupo-botones">
+      <button id="act2-boton-peor-caso" type="button" class="boton boton-secundario">Peor caso equilibrado</button>
+      <button id="act2-boton-aleatorio" type="button" class="boton boton-secundario">Caso aleatorio</button>
+    </div>
+
+    <div id="act2-grafica" class="grafica-barras" role="img" aria-label="Gráfica de palomas por palomar"></div>
+    <div id="act2-etiquetas" class="etiquetas-barras"></div>
+
+    <p id="act2-resumen" class="aviso aviso-info" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- ===================== 5. ACTIVIDAD 3 ===================== -->
+  <section id="actividad3" class="seccion-tema">
+    <h2>5. Actividad interactiva: aplicaciones</h2>
+    <p>
+      En cada problema, identifica quiénes son las «palomas» y quiénes los «palomares» antes de
+      responder. Puedes pedir una pista, verificar tu respuesta y, al final, revisar la solución
+      explicada.
+    </p>
+
+    <div id="act3-problemas"></div>
+  </section>
+
+  <!-- ===================== 6. CUESTIONARIO ===================== -->
+  <section id="quiz" class="seccion-tema">
+    <h2>6. Mini cuestionario de autoevaluación</h2>
+    <p>
+      Responde las siguientes preguntas para repasar el tema. Recibirás retroalimentación inmediata en
+      cada una; nada de lo que respondas se guarda ni se envía a ningún lado.
+    </p>
+
+    <form id="quiz-formulario">
+      <div id="quiz-preguntas"></div>
+
+      <div class="grupo-botones">
+        <button id="quiz-boton-calificar" type="button" class="boton boton-primario">Ver calificación</button>
+        <button id="quiz-boton-reiniciar" type="button" class="boton boton-secundario">Reintentar</button>
+      </div>
+
+      <p id="quiz-calificacion" class="aviso aviso-info calificacion-final" role="status" aria-live="assertive"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="js/palomar-datos.js"></script>
+<script src="js/palomar-comun.js"></script>
+<script src="js/palomar-actividad1.js"></script>
+<script src="js/palomar-actividad2.js"></script>
+<script src="js/palomar-actividad3.js"></script>
+<script src="js/palomar-quiz.js"></script>
+<script src="js/palomar-main.js"></script>
+</body>
+</html>

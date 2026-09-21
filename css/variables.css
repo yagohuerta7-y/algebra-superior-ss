@@ -1,0 +1,91 @@
+/*
+  Paleta institucional UNAM (azul + dorado) y tokens compartidos.
+  Modo claro por defecto; modo oscuro vía [data-tema="oscuro"] en <html>.
+  Contrastes verificados contra WCAG AA (texto normal >= 4.5:1, UI/texto grande >= 3:1).
+*/
+
+:root {
+  /* Tipografía y espaciado */
+  --fuente-base: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fuente-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --radio-borde: 10px;
+  --radio-borde-chico: 6px;
+  --espacio-1: 0.5rem;
+  --espacio-2: 1rem;
+  --espacio-3: 1.5rem;
+  --espacio-4: 2rem;
+  --espacio-5: 3rem;
+  --ancho-contenido: 46rem;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --duracion-transicion: 160ms;
+
+  /* --- Tema claro --- */
+  --color-fondo: #ffffff;
+  --color-fondo-alterno: #f4f6f8;
+  --color-fondo-tarjeta: #ffffff;
+  --color-texto: #1a1a1a;
+  --color-texto-tenue: #4a4a4a;
+  --color-primario: #003d6d;
+  --color-primario-hover: #00294a;
+  --color-sobre-primario: #ffffff;
+  --color-secundario: #00539b;
+  --color-acento: #c69214;
+  --color-acento-suave: #f6ecd3;
+  --color-acento-texto: #8a6408;
+  --color-exito: #2e7d32;
+  --color-exito-suave: #e6f4ea;
+  --color-error: #c62828;
+  --color-error-suave: #fbe9e7;
+  --color-advertencia: #b45309;
+  --color-advertencia-suave: #fdf1e0;
+  --color-borde: #d6dce1;
+  --color-foco: #8a6408;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --color-fondo: #0b1f33;
+    --color-fondo-alterno: #16283d;
+    --color-fondo-tarjeta: #132a42;
+    --color-texto: #f2f4f6;
+    --color-texto-tenue: #c8d0d8;
+    --color-primario: #5b9bd5;
+    --color-primario-hover: #7fb3e0;
+    --color-sobre-primario: #06121f;
+    --color-secundario: #8ab6e0;
+    --color-acento: #e3b23c;
+    --color-acento-suave: #2c2410;
+    --color-acento-texto: #f0c766;
+    --color-exito: #6fcf77;
+    --color-exito-suave: #16321c;
+    --color-error: #ff6b6b;
+    --color-error-suave: #3a1616;
+    --color-advertencia: #f5a623;
+    --color-advertencia-suave: #3a2a0c;
+    --color-borde: #2c4159;
+    --color-foco: #e3b23c;
+  }
+}
+
+:root[data-tema="oscuro"] {
+  --color-fondo: #0b1f33;
+  --color-fondo-alterno: #16283d;
+  --color-fondo-tarjeta: #132a42;
+  --color-texto: #f2f4f6;
+  --color-texto-tenue: #c8d0d8;
+  --color-primario: #5b9bd5;
+  --color-primario-hover: #7fb3e0;
+  --color-sobre-primario: #06121f;
+  --color-secundario: #8ab6e0;
+  --color-acento: #e3b23c;
+  --color-acento-suave: #2c2410;
+  --color-acento-texto: #f0c766;
+  --color-exito: #6fcf77;
+  --color-exito-suave: #16321c;
+  --color-error: #ff6b6b;
+  --color-error-suave: #3a1616;
+  --color-advertencia: #f5a623;
+  --color-advertencia-suave: #3a2a0c;
+  --color-borde: #2c4159;
+  --color-foco: #e3b23c;
+}
