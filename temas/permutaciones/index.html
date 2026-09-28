@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grupo de permutaciones — Álgebra Superior</title>
+<meta name="description" content="Notación, composición, axiomas de grupo y subgrupos de S9, con un Sudoku como ejemplo motivador, y tres actividades interactivas.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="css/permutaciones.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#intuicion">Intuición</a></li>
+    <li><a href="#notacion">Notación</a></li>
+    <li><a href="#composicion">Composición</a></li>
+    <li><a href="#grupo-s9">Grupo S₉</a></li>
+    <li><a href="#subgrupos">Subgrupos</a></li>
+    <li><a href="#actividad1">Actividad 1</a></li>
+    <li><a href="#actividad2">Actividad 2</a></li>
+    <li><a href="#actividad3">Actividad 3</a></li>
+    <li><a href="#quiz">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Grupo de permutaciones</h1>
+  <p class="introduccion-tema">
+    Un Sudoku resuelto y la idea de «reetiquetar sus dígitos» son la puerta de entrada a uno de
+    los grupos más importantes de las matemáticas: el grupo simétrico.
+  </p>
+
+  <!-- ===================== 1. INTUICIÓN ===================== -->
+  <section id="intuicion" class="seccion-tema">
+    <h2>1. Intuición: reetiquetar un Sudoku</h2>
+    <p>
+      Considera un Sudoku ya resuelto: una cuadrícula de $9\times 9$ llena con los dígitos
+      $1,\dots,9$ de modo que cada fila, cada columna y cada caja de $3\times 3$ contiene los
+      nueve dígitos sin repetir ninguno.
+    </p>
+
+    <div id="intro-sudoku" class="tablero-sudoku" role="img" aria-label="Sudoku resuelto de ejemplo"></div>
+
+    <p>
+      Ahora imagina que decides <strong>reetiquetar</strong> los dígitos: en todas las celdas,
+      cada vez que aparezca un $1$ lo cambias por un $6$, cada $6$ lo cambias por un $1$, y dejas
+      los demás dígitos igual. ¿Sigue siendo válido el Sudoku resultante?
+    </p>
+    <p>
+      Sí — y la razón es sencilla: la regla «sin repetidos» solo depende de si dos celdas de la
+      misma fila, columna o caja tienen <em>el mismo símbolo</em> o no, nunca de cuál símbolo en
+      particular sea. Si antes del reetiquetado no había símbolos repetidos, tampoco los habrá
+      después, porque el reetiquetado nunca hace que dos símbolos antes distintos se vuelvan
+      iguales, ni que dos símbolos antes iguales se vuelvan distintos.
+    </p>
+
+    <div class="caja caja-enunciado">
+      <h3>La idea clave</h3>
+      <p>
+        Un reetiquetado de este tipo es exactamente una función biyectiva
+        $\sigma : \{1,\dots,9\} \to \{1,\dots,9\}$: a cada dígito le asigna otro dígito, sin que
+        dos dígitos distintos vayan a dar al mismo lugar. A esta clase de funciones se les llama
+        <strong>permutaciones</strong>, y el conjunto de todas ellas — con la operación de
+        «aplicar una después de otra» — tiene una estructura muy rica: la de <strong>grupo</strong>.
+        El resto de este material explora esa estructura, usando el Sudoku como hilo conductor.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 2. NOTACIÓN ===================== -->
+  <section id="notacion" class="seccion-tema">
+    <h2>2. Permutaciones: definición y notación</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Definición</h3>
+      <p>
+        Una <strong>permutación</strong> del conjunto $\{1,2,\dots,9\}$ es una función biyectiva
+        $\sigma : \{1,\dots,9\} \to \{1,\dots,9\}$. Al conjunto de todas las permutaciones de
+        $\{1,\dots,9\}$ se le llama <strong>grupo simétrico de grado 9</strong> y se denota $S_9$.
+      </p>
+    </div>
+
+    <p>
+      Hay dos formas usuales de escribir una permutación. La <strong>notación de dos líneas</strong>
+      escribe el dominio arriba y las imágenes correspondientes abajo:
+    </p>
+    <p>
+      $$ \sigma = \begin{pmatrix} 1 & 2 & \cdots & 9 \\ \sigma(1) & \sigma(2) & \cdots & \sigma(9) \end{pmatrix} $$
+    </p>
+    <p>Por ejemplo, la permutación dada por</p>
+    <p>
+      $$ \sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 3 & 4 & 5 & 2 & 1 & 6 & 7 & 8 & 9 \end{pmatrix} $$
+    </p>
+    <p>
+      manda $1\mapsto 3$, $3\mapsto 5$, $5\mapsto 1$, $2\mapsto 4$, $4\mapsto 2$, y deja fijos a
+      $6,7,8,9$ (es decir, $\sigma(6)=6$, etc.).
+    </p>
+
+    <div class="caja caja-definicion">
+      <h3>Notación de ciclos</h3>
+      <p>
+        Siguiendo las imágenes de un elemento hasta regresar a él se obtienen los
+        <strong>ciclos</strong> de la permutación. Para la $\sigma$ anterior: empezando en $1$,
+        $1\to 3\to 5\to 1$ da el ciclo $(1\;3\;5)$; empezando en $2$, $2\to 4\to 2$ da el ciclo
+        $(2\;4)$. Los elementos fijos ($6,7,8,9$) se omiten. Así, en notación de ciclos:
+      </p>
+      <p>$$ \sigma = (1\;3\;5)(2\;4). $$</p>
+      <p>
+        La permutación que deja fijo a todo elemento se llama <strong>identidad</strong> y se
+        escribe $\text{id}$ (o simplemente $()$, sin ciclos que mostrar).
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 3. COMPOSICIÓN ===================== -->
+  <section id="composicion" class="seccion-tema">
+    <h2>3. Composición de permutaciones</h2>
+    <p>
+      Como las permutaciones son funciones, se pueden componer: dadas $\sigma,\tau \in S_9$, su
+      composición $\sigma\circ\tau$ es la función
+    </p>
+    <p>$$ (\sigma\circ\tau)(x) = \sigma(\tau(x)), $$</p>
+    <p>
+      es decir, primero se aplica $\tau$ y después $\sigma$. Como la composición de dos funciones
+      biyectivas es biyectiva, $\sigma\circ\tau$ es de nuevo una permutación: la composición nunca
+      se «sale» de $S_9$.
+    </p>
+
+    <div class="caja caja-advertencia">
+      <h3>La composición no es conmutativa</h3>
+      <p>
+        Sean $\sigma=(1\;2)$ y $\tau=(2\;3)$ (cada una deja fijos los dígitos que no menciona).
+        Calculando $\sigma\circ\tau$ (primero $\tau$, luego $\sigma$):
+      </p>
+      <p>
+        $$ (\sigma\circ\tau)(1)=\sigma(1)=2, \quad (\sigma\circ\tau)(2)=\sigma(3)=3, \quad
+        (\sigma\circ\tau)(3)=\sigma(2)=1, $$
+      </p>
+      <p>así que $\sigma\circ\tau=(1\;2\;3)$. Pero componiendo en el otro orden:</p>
+      <p>
+        $$ (\tau\circ\sigma)(1)=\tau(2)=3, \quad (\tau\circ\sigma)(2)=\tau(1)=1, \quad
+        (\tau\circ\sigma)(3)=\tau(3)=2, $$
+      </p>
+      <p>
+        es decir $\tau\circ\sigma=(1\;3\;2)$. Como $(1\;2\;3)\neq(1\;3\;2)$, se tiene
+        $\sigma\circ\tau\neq\tau\circ\sigma$: en $S_9$, en general <strong>el orden en que se
+        componen las permutaciones importa</strong>. Puedes comprobarlo tú mismo con cualquier par
+        de reetiquetados en la Actividad 2.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 4. GRUPO S9 ===================== -->
+  <section id="grupo-s9" class="seccion-tema">
+    <h2>4. El grupo $S_9$: verificación de los axiomas</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Definición de grupo</h3>
+      <p>Un <strong>grupo</strong> es un conjunto $G$ con una operación $\circ$ que cumple:</p>
+      <p>
+        1. <strong>Cerradura:</strong> $a\circ b \in G$ para cualesquiera $a,b \in G$.<br>
+        2. <strong>Asociatividad:</strong> $(a\circ b)\circ c = a\circ(b\circ c)$ para todos
+        $a,b,c \in G$.<br>
+        3. <strong>Identidad:</strong> existe $e \in G$ tal que $e\circ a = a\circ e = a$ para todo
+        $a \in G$.<br>
+        4. <strong>Inversos:</strong> para cada $a \in G$ existe $a^{-1} \in G$ tal que
+        $a\circ a^{-1} = a^{-1}\circ a = e$.
+      </p>
+    </div>
+
+    <p>Verifiquemos cada axioma para $(S_9,\circ)$, usando el Sudoku como intuición:</p>
+
+    <div class="caja caja-definicion">
+      <h3>1. Cerradura</h3>
+      <p>
+        Aplicar dos reetiquetados sucesivos al Sudoku (primero $\tau$, luego $\sigma$) equivale a
+        aplicar un solo reetiquetado, $\sigma\circ\tau$, y el resultado sigue siendo un Sudoku
+        válido — porque, como vimos, la composición de biyecciones es biyección. $S_9$ es cerrado
+        bajo $\circ$.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>2. Asociatividad</h3>
+      <p>Para cualesquiera $\sigma,\tau,\rho \in S_9$ y cualquier $x$,</p>
+      <p>
+        $$ ((\sigma\circ\tau)\circ\rho)(x) = \sigma(\tau(\rho(x))) = (\sigma\circ(\tau\circ\rho))(x). $$
+      </p>
+      <p>
+        No es una propiedad especial de las permutaciones, sino de la composición de funciones en
+        general. Si aplicas tres reetiquetados en cadena al Sudoku, el resultado final es el mismo
+        sin importar cómo agrupes los paréntesis.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>3. Identidad</h3>
+      <p>
+        La permutación $\text{id}$ (que deja cada dígito fijo) satisface
+        $\text{id}\circ\sigma = \sigma\circ\text{id} = \sigma$ para toda $\sigma$: aplicarla al
+        Sudoku lo deja exactamente igual.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>4. Inversos</h3>
+      <p>
+        Toda permutación $\sigma$ tiene una inversa $\sigma^{-1}$ que «deshace» el reetiquetado: si
+        $\sigma$ manda $a\mapsto b$, entonces $\sigma^{-1}$ manda $b\mapsto a$. Aplicar $\sigma$ y
+        después $\sigma^{-1}$ regresa el Sudoku a su forma original. Explora esto en la Actividad 3.
+      </p>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <p>
+        Los cuatro axiomas se cumplen: $(S_9,\circ)$ es un grupo, llamado el <strong>grupo
+        simétrico</strong> de grado 9, con $9! = 362\,880$ elementos. Y, como vimos en la sección
+        anterior, <strong>no es abeliano</strong> (conmutativo): el orden de composición importa.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 5. SUBGRUPOS ===================== -->
+  <section id="subgrupos" class="seccion-tema">
+    <h2>5. Subgrupos, orden y el subgrupo cíclico generado</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Subgrupo</h3>
+      <p>
+        Un subconjunto $H \subseteq S_9$ es un <strong>subgrupo</strong> si $H$ no es vacío,
+        contiene la identidad, y es cerrado bajo composición e inversos (es decir, $H$ es, por sí
+        mismo, un grupo con la misma operación).
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>Subgrupo cíclico generado por una permutación</h3>
+      <p>
+        Dada $\sigma \in S_9$, sus potencias $\sigma^0=\text{id}$, $\sigma^1=\sigma$,
+        $\sigma^2=\sigma\circ\sigma$, etc., eventualmente regresan a la identidad. Al menor entero
+        positivo $k$ tal que $\sigma^k=\text{id}$ se le llama el <strong>orden</strong> de
+        $\sigma$, y al conjunto
+      </p>
+      <p>$$ \langle\sigma\rangle = \{\text{id}, \sigma, \sigma^2, \dots, \sigma^{k-1}\} $$</p>
+      <p>
+        se le llama <strong>subgrupo cíclico generado por $\sigma$</strong> — y en efecto es un
+        subgrupo: contiene la identidad, es cerrado bajo composición
+        ($\sigma^i\circ\sigma^j=\sigma^{i+j}$, otra potencia de $\sigma$) y bajo inversos (el
+        inverso de $\sigma^i$ es $\sigma^{k-i}$).
+      </p>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Cómo calcular el orden</h3>
+      <p>
+        Si $\sigma$ se descompone en ciclos disjuntos de longitudes $\ell_1,\dots,\ell_r$
+        (omitiendo los puntos fijos), su orden es
+      </p>
+      <p>$$ \text{orden}(\sigma) = \text{mcm}(\ell_1,\dots,\ell_r), $$</p>
+      <p>
+        porque un ciclo de longitud $\ell$ regresa a su posición inicial cada $\ell$ aplicaciones,
+        y todos los ciclos deben «sincronizarse» de vuelta a la vez.
+      </p>
+    </div>
+
+    <p>
+      En términos del Sudoku: el orden de $\sigma$ es el menor número de veces que hay que aplicar
+      el reetiquetado para regresar exactamente al Sudoku original.
+    </p>
+
+    <details class="solucion">
+      <summary>Ejemplo A: una transposición</summary>
+      <div class="contenido-solucion">
+        <p>
+          Sea $\tau=(1\;2)$. Como $\tau^2=\text{id}$, su orden es $2$, y
+          $\langle\tau\rangle=\{\text{id},\tau\}$: el subgrupo cíclico más pequeño posible (salvo
+          el trivial $\{\text{id}\}$).
+        </p>
+      </div>
+    </details>
+
+    <details class="solucion">
+      <summary>Ejemplo B: una permutación con dos ciclos</summary>
+      <div class="contenido-solucion">
+        <p>
+          Sea $\sigma=(1\;3\;5)(2\;4)$ (la misma de la sección 2). Sus ciclos tienen longitudes
+          $3$ y $2$, así que su orden es $\text{mcm}(3,2)=6$. Las seis potencias de $\sigma$ son:
+        </p>
+        <p>
+          $\sigma^0=\text{id}$, &nbsp; $\sigma^1=(1\;3\;5)(2\;4)$, &nbsp; $\sigma^2=(1\;5\;3)$,
+          &nbsp; $\sigma^3=(2\;4)$, &nbsp; $\sigma^4=(1\;3\;5)$, &nbsp;
+          $\sigma^5=(1\;5\;3)(2\;4)$,
+        </p>
+        <p>
+          y $\sigma^6=\text{id}$ de nuevo. Nota cómo el ciclo de longitud 2 «termina» en
+          $\sigma^2,\sigma^4,\sigma^6$ (múltiplos de 2) mientras que el de longitud 3 termina en
+          $\sigma^3,\sigma^6$ (múltiplos de 3); ambos coinciden por primera vez en
+          $\sigma^6$, con $\text{mcm}(3,2)=6$.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 6. ACTIVIDAD 1 ===================== -->
+  <section id="actividad1" class="seccion-tema">
+    <h2>6. Actividad interactiva: explorador de permutaciones de un Sudoku</h2>
+    <p>
+      Construye una permutación de $\{1,\dots,9\}$ asignando, para cada dígito, a qué dígito lo
+      quieres reetiquetar. Como el dominio y el codominio son el mismo conjunto finito, basta con
+      que la asignación no repita ningún valor para que sea una biyección (la misma idea del
+      principio del palomar: inyectiva y del mismo tamaño finito implica biyectiva).
+    </p>
+
+    <div id="act1-constructor-permutacion"></div>
+
+    <p id="act1-resumen-biyeccion" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <div class="grupo-botones">
+      <button id="act1-boton-aleatorio" type="button" class="boton boton-secundario">Permutación aleatoria</button>
+      <button id="act1-boton-identidad" type="button" class="boton boton-secundario">Restablecer identidad</button>
+    </div>
+
+    <div id="act1-notacion-dos-lineas" class="formula-dinamica"></div>
+    <div id="act1-notacion-ciclos" class="formula-dinamica notacion-ciclos"></div>
+
+    <div class="rejilla-sudokus">
+      <div class="tarjeta-sudoku">
+        <h4>Sudoku original</h4>
+        <div id="act1-sudoku-original" class="tablero-sudoku" role="img" aria-label="Sudoku original"></div>
+      </div>
+      <div class="tarjeta-sudoku">
+        <h4>Sudoku permutado</h4>
+        <div id="act1-sudoku-transformado" class="tablero-sudoku" role="img" aria-label="Sudoku con los dígitos reetiquetados"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. ACTIVIDAD 2 ===================== -->
+  <section id="actividad2" class="seccion-tema">
+    <h2>7. Actividad interactiva: calculadora de composición</h2>
+    <p>
+      Construye dos permutaciones, $\sigma$ y $\tau$, y observa cómo se calcula
+      $\sigma\circ\tau$ paso a paso, y qué Sudoku resulta de aplicarla. El botón «Comparar»
+      calcula también $\tau\circ\sigma$ para que compruebes si coinciden.
+    </p>
+
+    <div class="rejilla-constructores">
+      <div>
+        <h3>Permutación σ</h3>
+        <div id="act2-constructor-sigma"></div>
+      </div>
+      <div>
+        <h3>Permutación τ</h3>
+        <div id="act2-constructor-tau"></div>
+      </div>
+    </div>
+
+    <div class="grupo-botones">
+      <button id="act2-boton-aleatorio-sigma" type="button" class="boton boton-secundario">σ aleatoria</button>
+      <button id="act2-boton-aleatorio-tau" type="button" class="boton boton-secundario">τ aleatoria</button>
+      <button id="act2-boton-comparar" type="button" class="boton boton-primario">Comparar σ∘τ vs τ∘σ</button>
+    </div>
+
+    <p id="act2-mensaje-validez" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <h3>Composición paso a paso: $(\sigma\circ\tau)(x) = \sigma(\tau(x))$</h3>
+    <ul id="act2-pasos-composicion" class="lista-pasos-composicion"></ul>
+
+    <div id="act2-notacion-dos-lineas" class="formula-dinamica"></div>
+    <div id="act2-notacion-ciclos" class="formula-dinamica notacion-ciclos"></div>
+
+    <p id="act2-mensaje-conmutatividad" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <div class="rejilla-sudokus">
+      <div class="tarjeta-sudoku">
+        <h4>Sudoku original</h4>
+        <div id="act2-sudoku-original" class="tablero-sudoku" role="img" aria-label="Sudoku original"></div>
+      </div>
+      <div class="tarjeta-sudoku">
+        <h4>Sudoku tras σ∘τ</h4>
+        <div id="act2-sudoku-resultado" class="tablero-sudoku" role="img" aria-label="Sudoku con los dígitos reetiquetados por la composición"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. ACTIVIDAD 3 ===================== -->
+  <section id="actividad3" class="seccion-tema">
+    <h2>8. Actividad interactiva: buscador del inverso</h2>
+    <p>
+      Construye una permutación $\sigma$ y observa su inversa $\sigma^{-1}$. Al aplicar primero
+      $\sigma$ y después $\sigma^{-1}$ al Sudoku, deberías regresar exactamente al original: eso
+      es justamente lo que significa $\sigma^{-1}\circ\sigma=\text{id}$.
+    </p>
+
+    <div id="act3-constructor-permutacion"></div>
+
+    <div class="grupo-botones">
+      <button id="act3-boton-aleatorio" type="button" class="boton boton-secundario">Permutación aleatoria</button>
+    </div>
+
+    <p id="act3-mensaje-validez" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <div id="act3-notacion-sigma" class="formula-dinamica"></div>
+    <div id="act3-notacion-inversa" class="formula-dinamica notacion-ciclos"></div>
+
+    <p id="act3-mensaje-verificacion" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <div class="rejilla-sudokus">
+      <div class="tarjeta-sudoku">
+        <h4>Original</h4>
+        <div id="act3-sudoku-original" class="tablero-sudoku" role="img" aria-label="Sudoku original"></div>
+      </div>
+      <div class="tarjeta-sudoku">
+        <h4>Tras aplicar σ</h4>
+        <div id="act3-sudoku-sigma" class="tablero-sudoku" role="img" aria-label="Sudoku tras aplicar sigma"></div>
+      </div>
+      <div class="tarjeta-sudoku">
+        <h4>Tras aplicar σ⁻¹ (regresa al original)</h4>
+        <div id="act3-sudoku-inversa" class="tablero-sudoku" role="img" aria-label="Sudoku tras aplicar sigma y luego su inversa"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 9. CUESTIONARIO ===================== -->
+  <section id="quiz" class="seccion-tema">
+    <h2>9. Mini cuestionario de autoevaluación</h2>
+    <p>
+      Responde las siguientes preguntas para repasar el tema. Recibirás retroalimentación
+      inmediata en cada una; nada de lo que respondas se guarda ni se envía a ningún lado.
+    </p>
+
+    <form id="quiz-formulario">
+      <div id="quiz-preguntas"></div>
+
+      <div class="grupo-botones">
+        <button id="quiz-boton-calificar" type="button" class="boton boton-primario">Ver calificación</button>
+        <button id="quiz-boton-reiniciar" type="button" class="boton boton-secundario">Reintentar</button>
+      </div>
+
+      <p id="quiz-calificacion" class="aviso aviso-info calificacion-final" role="status" aria-live="assertive"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="js/permutaciones-datos.js"></script>
+<script src="js/permutaciones-comun.js"></script>
+<script src="js/permutaciones-actividad1.js"></script>
+<script src="js/permutaciones-actividad2.js"></script>
+<script src="js/permutaciones-actividad3.js"></script>
+<script src="js/permutaciones-quiz.js"></script>
+<script src="js/permutaciones-main.js"></script>
+</body>
+</html>

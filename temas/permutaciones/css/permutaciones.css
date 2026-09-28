@@ -1,0 +1,132 @@
+/* Estilos específicos del tema "Grupo de permutaciones" */
+
+/* Las fórmulas en modo display de KaTeX pueden ser más anchas que una
+   pantalla de celular: permitir scroll horizontal solo en la fórmula,
+   nunca en la página completa. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+.introduccion-tema {
+  color: var(--color-texto-tenue);
+  font-size: 1.05rem;
+}
+
+.seccion-tema {
+  scroll-margin-top: 4rem;
+}
+
+.formula-dinamica {
+  text-align: center;
+  margin: var(--espacio-2) 0;
+  min-height: 2.4rem;
+}
+
+.notacion-ciclos {
+  font-family: var(--fuente-mono);
+}
+
+/* --- Constructor de permutación (9 selects dominio -> imagen) --- */
+.constructor-permutacion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: var(--espacio-2);
+  margin: var(--espacio-2) 0;
+}
+
+.fila-permutacion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.fila-permutacion label {
+  font-weight: 600;
+}
+
+.fila-permutacion.colision-permutacion select {
+  border-color: var(--color-error);
+  background: var(--color-error-suave);
+}
+
+.rejilla-constructores {
+  display: grid;
+  gap: var(--espacio-3);
+  margin: var(--espacio-2) 0;
+}
+
+@media (min-width: 640px) {
+  .rejilla-constructores {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Tableros de Sudoku --- */
+.rejilla-sudokus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+  justify-content: center;
+  margin: var(--espacio-2) 0;
+}
+
+.tarjeta-sudoku {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.tarjeta-sudoku h4 {
+  margin: 0;
+}
+
+.tablero-sudoku {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: min(100%, 18rem);
+  aspect-ratio: 1;
+  border: 2px solid var(--color-texto);
+  background: var(--color-fondo);
+}
+
+.celda-sudoku {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-borde);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.celda-sudoku.borde-caja-derecha {
+  border-right: 3px solid var(--color-texto);
+}
+
+.celda-sudoku.borde-caja-inferior {
+  border-bottom: 3px solid var(--color-texto);
+}
+
+.celda-sudoku.celda-cambiada {
+  background: var(--color-acento-suave);
+  color: var(--color-acento-texto);
+}
+
+/* --- Actividad 2: desglose de la composición --- */
+.lista-pasos-composicion {
+  list-style: none;
+  padding: 0;
+  margin: var(--espacio-2) 0;
+  display: grid;
+  gap: 0.4em;
+  font-family: var(--fuente-mono);
+}
+
+.paso-composicion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  align-items: center;
+}

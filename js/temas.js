@@ -30,5 +30,14 @@ window.TEMAS = [
     ruta: null,
     estado: "proximamente",
     orden: 3
+  },
+  {
+    id: "permutaciones",
+    titulo: "Grupo de permutaciones",
+    descripcionCorta:
+      "Reetiquetar los dígitos de un Sudoku resuelto revela la estructura de grupo de las permutaciones: composición, inversos y subgrupos cíclicos, con tres actividades interactivas.",
+    ruta: "temas/permutaciones/index.html",
+    estado: "disponible",
+    orden: 4
   }
 ];
