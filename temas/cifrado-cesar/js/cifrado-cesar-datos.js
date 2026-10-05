@@ -79,11 +79,16 @@ window.CIFRADO_CESAR_QUIZ = [
   {
     id: "q7",
     tipo: "opcion",
-    pregunta: "¿Cuál es el orden del elemento k=9 en (Z₂₇,+)?",
-    opciones: ["3", "9", "27", "1"],
+    pregunta: "Según el historiador romano Suetonio, ¿quién usaba este cifrado para comunicarse con sus generales, y con qué desplazamiento?",
+    opciones: [
+      "Julio César, con un desplazamiento de 3 posiciones",
+      "Alejandro Magno, con un desplazamiento de 7 posiciones",
+      "Los espartanos, enrollando un listón sobre un bastón (la escítala)",
+      "Los egipcios, mediante jeroglíficos cifrados"
+    ],
     respuestaCorrecta: 0,
-    retroCorrecta: "Correcto: mcd(9,27)=9, así que el orden es 27/9=3. En efecto, 9+9+9=27≡0 (mod 27), y ⟨9⟩={0,9,18}.",
-    retroIncorrecta: "No es correcto. El orden de k en Zn es n/mcd(k,n); aquí mcd(9,27)=9, así que el orden es 27/9=3."
+    retroCorrecta: "Correcto: según Suetonio, en Vidas de los doce césares, Julio César sustituía cada letra por la que está tres lugares adelante en el alfabeto.",
+    retroIncorrecta: "No es correcto. Revisa la sección 5: fue Julio César quien, según Suetonio, usó un desplazamiento de 3 para comunicarse con sus generales."
   },
   {
     id: "q8",

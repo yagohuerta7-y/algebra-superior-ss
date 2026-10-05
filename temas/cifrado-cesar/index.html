@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cifrado César — Álgebra Superior</title>
-<meta name="description" content="El cifrado César como aritmética modular: congruencias, el grupo abeliano (Zn,+), orden de un elemento, y dos actividades interactivas con un reloj modular.">
+<meta name="description" content="El cifrado César como aritmética modular: congruencias, el grupo abeliano (Zn,+), contexto histórico, y dos actividades interactivas con un reloj modular.">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <link rel="stylesheet" href="../../css/variables.css">
@@ -35,7 +35,7 @@
     <li><a href="#modular">Aritmética modular</a></li>
     <li><a href="#cifrado">Cifrado y descifrado</a></li>
     <li><a href="#grupo-zn">Grupo Zₙ</a></li>
-    <li><a href="#subgrupos">Subgrupos</a></li>
+    <li><a href="#historia">Contexto histórico</a></li>
     <li><a href="#actividad1">Actividad 1</a></li>
     <li><a href="#actividad2">Actividad 2</a></li>
     <li><a href="#quiz">Autoevaluación</a></li>
@@ -201,50 +201,53 @@
     </div>
   </section>
 
-  <!-- ===================== 5. SUBGRUPOS ===================== -->
-  <section id="subgrupos" class="seccion-tema">
-    <h2>5. Subgrupos cíclicos y orden de un elemento</h2>
+  <!-- ===================== 5. CONTEXTO HISTÓRICO ===================== -->
+  <section id="historia" class="seccion-tema">
+    <h2>5. Un vistazo histórico</h2>
 
     <div class="caja caja-definicion">
-      <h3>Subgrupo cíclico generado por k</h3>
+      <h3>Julio César y sus generales</h3>
       <p>
-        Dado $k \in \mathbb{Z}_n$, sus múltiplos $0\cdot k, 1\cdot k, 2\cdot k, \dots$ (todos
-        módulo $n$) eventualmente regresan a $0$. Al menor entero positivo $m$ tal que
-        $m\cdot k \equiv 0 \pmod n$ se le llama el <strong>orden</strong> de $k$, y al conjunto
+        El historiador romano Suetonio, en su obra <em>Vidas de los doce césares</em>,
+        cuenta que Julio César usaba este cifrado para comunicarse con sus generales durante
+        las campañas militares: sustituía cada letra por la que está tres lugares adelante en
+        el alfabeto (el caso particular $k=3$). Si el mensajero era interceptado por el
+        enemigo, el contenido quedaba ilegible a simple vista.
       </p>
-      <p>$$ \langle k \rangle = \{0, k, 2k, \dots, (m-1)k\} \pmod n $$</p>
-      <p>se le llama <strong>subgrupo cíclico generado por $k$</strong>.</p>
+      <p>
+        Años después, su sobrino y sucesor, el emperador Augusto, usó una variante todavía
+        más simple: un desplazamiento de apenas una posición.
+      </p>
     </div>
 
-    <div class="caja caja-enunciado">
-      <h3>Cómo calcular el orden</h3>
-      <p>El orden de $k$ en $(\mathbb{Z}_n,+)$ es</p>
-      <p>$$ \text{orden}(k) = \frac{n}{\gcd(k,n)}. $$</p>
+    <p>
+      En su época, bastaba con que la mayoría de la gente no supiera leer para que este tipo
+      de sustitución pareciera un secreto casi infranqueable. Es, de hecho, uno de los
+      cifrados más antiguos que se conocen, y un punto de partida clásico para introducir la
+      criptografía.
+    </p>
+
+    <div class="caja caja-advertencia">
+      <h3>Una seguridad que no duró</h3>
       <p>
-        En particular, si $\gcd(k,n)=1$ el orden es $n$: ese $k$ genera todo
-        $\mathbb{Z}_n$, es decir, es equivalente (salvo módulo $n$) a aplicar el
-        desplazamiento $k$ repetidamente para recorrer los $n$ símbolos antes de regresar al
-        inicio.
+        Como viste en la sección anterior, el cifrado César tiene un espacio de claves
+        diminuto: con $n=27$ solo hay 26 desplazamientos posibles. Hoy, con ayuda de una
+        computadora (o incluso a mano), se puede romper en segundos probándolos todos. Por
+        eso, aunque es un hito histórico de la criptografía, en la actualidad se usa solo con
+        fines didácticos o lúdicos, nunca para proteger información real.
       </p>
     </div>
 
     <details class="solucion">
-      <summary>Ejemplo A: un subgrupo pequeño</summary>
+      <summary>Curiosidad: ¿de dónde viene la palabra «cifrado»?</summary>
       <div class="contenido-solucion">
         <p>
-          Sea $n=27$, $k=9$. Como $\gcd(9,27)=9$, el orden de $9$ es $27/9=3$, y
-          $\langle 9\rangle=\{0,9,18\}$: en efecto, $9+9+9=27\equiv 0\pmod{27}$.
-        </p>
-      </div>
-    </details>
-
-    <details class="solucion">
-      <summary>Ejemplo B: un generador de todo $\mathbb{Z}_{27}$</summary>
-      <div class="contenido-solucion">
-        <p>
-          Sea $n=27$, $k=5$. Como $\gcd(5,27)=1$, el orden de $5$ es $27$:
-          $\langle 5\rangle = \mathbb{Z}_{27}$ completo. Desplazar repetidamente de 5 en 5
-          recorre los 27 símbolos del alfabeto antes de regresar a $0$.
+          La palabra «cifra» viene del árabe <em>ṣifr</em> (صفر), que significa «vacío» o
+          «cero» — el mismo origen de la palabra «cero» en español. Los matemáticos
+          árabes introdujeron ese símbolo en Europa junto con el sistema de numeración
+          posicional, y con el tiempo «cifra» pasó a significar también «mensaje en clave»,
+          porque para quien no conocía el secreto, el texto cifrado era tan ilegible como un
+          número sin sentido.
         </p>
       </div>
     </details>

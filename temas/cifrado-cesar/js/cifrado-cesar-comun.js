@@ -1,8 +1,7 @@
 /*
   Utilidades compartidas por las actividades del tema "Cifrado César":
-  aritmética modular (Zn), cifrado/descifrado, orden de un elemento, un
-  control deslizante de un solo valor, el reloj modular (SVG) y la tabla del
-  alfabeto.
+  aritmética modular (Zn), cifrado/descifrado, un control deslizante de un
+  solo valor, el reloj modular (SVG) y la tabla del alfabeto.
 */
 
 /** Residuo no negativo de a módulo n (maneja correctamente valores negativos de a). */
@@ -73,24 +72,6 @@ function generarPasosCifrado(texto, k) {
     });
   }
   return pasos;
-}
-
-function mcd(a, b) {
-  while (b !== 0) {
-    var resto = a % b;
-    a = b;
-    b = resto;
-  }
-  return a;
-}
-
-/** Orden del elemento k en (Zn,+): menor m>0 tal que m*k ≡ 0 (mod n), es decir n/mcd(k,n). */
-function ordenElementoZn(k, n) {
-  var kMod = modulo(k, n);
-  if (kMod === 0) {
-    return 1;
-  }
-  return n / mcd(kMod, n);
 }
 
 /**
