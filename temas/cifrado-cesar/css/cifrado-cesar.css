@@ -1,0 +1,138 @@
+/* Estilos específicos del tema "Cifrado César" */
+
+/* Las fórmulas en modo display de KaTeX pueden ser más anchas que una
+   pantalla de celular: permitir scroll horizontal solo en la fórmula,
+   nunca en la página completa. */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+.introduccion-tema {
+  color: var(--color-texto-tenue);
+  font-size: 1.05rem;
+}
+
+.seccion-tema {
+  scroll-margin-top: 4rem;
+}
+
+.formula-dinamica {
+  text-align: center;
+  margin: var(--espacio-2) 0;
+  min-height: 2.4rem;
+}
+
+/* --- Tabla del alfabeto (sección #modular) --- */
+.tabla-alfabeto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.8rem, 1fr));
+  gap: 0.4em;
+  margin: var(--espacio-2) 0;
+}
+
+.celda-alfabeto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde-chico);
+  padding: 0.4em 0.2em;
+  background: var(--color-fondo);
+}
+
+.letra-alfabeto {
+  font-weight: 700;
+  font-family: var(--fuente-mono);
+}
+
+.indice-alfabeto {
+  font-size: 0.75rem;
+  color: var(--color-texto-tenue);
+}
+
+/* --- Texto cifrado/descifrado (Actividad 1) --- */
+.texto-cifrado {
+  font-family: var(--fuente-mono);
+  font-size: 1.1rem;
+  word-break: break-word;
+  background: var(--color-fondo-alterno);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde-chico);
+  padding: var(--espacio-2);
+  margin: var(--espacio-2) 0;
+}
+
+.lista-pasos-cifrado {
+  list-style: none;
+  padding: 0;
+  margin: var(--espacio-2) 0;
+  display: grid;
+  gap: 0.4em;
+  font-family: var(--fuente-mono);
+  font-size: 0.9rem;
+}
+
+.paso-cifrado.caracter-conservado {
+  color: var(--color-texto-tenue);
+  font-style: italic;
+}
+
+/* --- Reloj modular (SVG, sección #modular y Actividad 2) --- */
+.reloj-modular {
+  max-width: 22rem;
+  margin: var(--espacio-3) auto;
+}
+
+.reloj-modular-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.circulo-base-reloj {
+  fill: none;
+  stroke: var(--color-borde);
+  stroke-width: 1;
+}
+
+.punto-reloj {
+  fill: var(--color-fondo);
+  stroke: var(--color-texto-tenue);
+  stroke-width: 1.5;
+}
+
+.punto-reloj.origen {
+  fill: var(--color-secundario);
+  stroke: var(--color-secundario);
+}
+
+.punto-reloj.destino {
+  fill: var(--color-acento);
+  stroke: var(--color-acento-texto);
+}
+
+.etiqueta-reloj {
+  font-size: 9px;
+  fill: var(--color-texto);
+  font-family: var(--fuente-mono);
+}
+
+.arco-desplazamiento {
+  stroke: var(--color-acento-texto);
+  stroke-width: 2.5;
+  transition: opacity var(--duracion-transicion) ease;
+}
+
+.punta-flecha-reloj {
+  fill: var(--color-acento-texto);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arco-desplazamiento {
+    transition: none;
+  }
+}

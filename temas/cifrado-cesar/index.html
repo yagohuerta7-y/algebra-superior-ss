@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cifrado César — Álgebra Superior</title>
+<meta name="description" content="El cifrado César como aritmética modular: congruencias, el grupo abeliano (Zn,+), orden de un elemento, y dos actividades interactivas con un reloj modular.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="css/cifrado-cesar.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#intuicion">Intuición</a></li>
+    <li><a href="#modular">Aritmética modular</a></li>
+    <li><a href="#cifrado">Cifrado y descifrado</a></li>
+    <li><a href="#grupo-zn">Grupo Zₙ</a></li>
+    <li><a href="#subgrupos">Subgrupos</a></li>
+    <li><a href="#actividad1">Actividad 1</a></li>
+    <li><a href="#actividad2">Actividad 2</a></li>
+    <li><a href="#quiz">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Cifrado César</h1>
+  <p class="introduccion-tema">
+    Detrás de uno de los cifrados más antiguos de la historia hay una operación muy familiar:
+    la suma módulo n. Usaremos el cifrado César para construir y explorar el grupo
+    $(\mathbb{Z}_n, +)$.
+  </p>
+
+  <!-- ===================== 1. INTUICIÓN ===================== -->
+  <section id="intuicion" class="seccion-tema">
+    <h2>1. Intuición: un mensaje disfrazado</h2>
+    <p>
+      El mensaje <strong>HOLA</strong>, cifrado con un desplazamiento de 5 posiciones, se
+      convierte en <strong>MTPF</strong>. Cada letra simplemente «avanzó» 5 lugares en el
+      alfabeto: la H se volvió M, la O se volvió T, y así sucesivamente.
+    </p>
+    <p>
+      ¿Qué pasa cuando una letra está cerca del final del alfabeto, como la X, la Y o la Z, y
+      «avanza» más allá de la Z? Vuelve a empezar desde la A — exactamente como las manecillas
+      de un reloj, que al pasar de las 12 regresan a la 1. Esa idea de «dar la vuelta» es,
+      precisamente, la aritmética modular, y es el hilo conductor de todo este tema.
+    </p>
+  </section>
+
+  <!-- ===================== 2. ARITMÉTICA MODULAR ===================== -->
+  <section id="modular" class="seccion-tema">
+    <h2>2. Aritmética modular: el conjunto $\mathbb{Z}_n$</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Congruencia módulo n</h3>
+      <p>
+        Dado un entero $n>0$, decimos que $a$ es <strong>congruente</strong> con $b$ módulo
+        $n$, y escribimos
+      </p>
+      <p>$$ a \equiv b \pmod{n}, $$</p>
+      <p>
+        si $n$ divide exactamente a $a-b$. De forma equivalente, $a$ y $b$ dejan el mismo
+        residuo al dividirlos entre $n$.
+      </p>
+    </div>
+
+    <p>
+      Al conjunto de los posibles residuos al dividir entre $n$ se le llama $\mathbb{Z}_n$:
+    </p>
+    <p>$$ \mathbb{Z}_n = \{0, 1, 2, \dots, n-1\}, $$</p>
+    <p>
+      con la operación de <strong>suma módulo n</strong>: para sumar $a+b$ en $\mathbb{Z}_n$,
+      se suman como enteros y luego se toma el residuo al dividir entre $n$.
+    </p>
+
+    <div class="caja caja-enunciado">
+      <h3>El alfabeto como $\mathbb{Z}_{27}$</h3>
+      <p>
+        Para cifrar texto en español usaremos un alfabeto de $n=27$ símbolos (las 26 letras
+        de A a Z, más la Ñ, sin espacios ni acentos), numerados de $0$ a $26$:
+      </p>
+      <div id="modular-tabla-alfabeto" class="tabla-alfabeto" role="img" aria-label="Alfabeto de 27 símbolos con su índice de 0 a 26"></div>
+    </div>
+
+    <p>
+      La analogía del reloj no es solo una forma de hablar: si colocamos los 27 símbolos
+      alrededor de un círculo, sumar $k$ módulo $27$ es literalmente avanzar $k$ posiciones
+      sobre ese reloj. Por ejemplo, partiendo de la H (índice 7) y avanzando 5 posiciones se
+      llega a la M (índice 12):
+    </p>
+    <div id="modular-reloj" class="reloj-modular" aria-hidden="true"></div>
+  </section>
+
+  <!-- ===================== 3. CIFRADO Y DESCIFRADO ===================== -->
+  <section id="cifrado" class="seccion-tema">
+    <h2>3. El cifrado César como suma módulo n</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Definición</h3>
+      <p>
+        Fijado un desplazamiento $k \in \mathbb{Z}_n$, el <strong>cifrado César</strong> con
+        clave $k$ es la función $E_k : \mathbb{Z}_n \to \mathbb{Z}_n$ dada por
+      </p>
+      <p>$$ E_k(x) = (x+k) \bmod n. $$</p>
+      <p>Para descifrar, basta con restar el mismo desplazamiento:</p>
+      <p>$$ D_k(x) = (x-k) \bmod n. $$</p>
+      <p>
+        Los caracteres que no forman parte del alfabeto (espacios, puntuación) se dejan sin
+        cambio.
+      </p>
+    </div>
+
+    <p>Ejemplo trabajado: cifrar <strong>HOLA</strong> con $k=5$, letra por letra:</p>
+    <p>
+      $$ H(7)+5 \equiv 12 \pmod{27} \to M, \quad O(15)+5 \equiv 20 \pmod{27} \to T, $$
+    </p>
+    <p>
+      $$ L(11)+5 \equiv 16 \pmod{27} \to P, \quad A(0)+5 \equiv 5 \pmod{27} \to F. $$
+    </p>
+    <p>
+      Así, $E_5(\text{HOLA}) = \text{MTPF}$. Para descifrar, restamos 5 a cada índice:
+      $M(12)-5=7=H$, $T(20)-5=15=O$, $P(16)-5=11=L$, $F(5)-5=0=A$, y regresamos exactamente a
+      <strong>HOLA</strong>.
+    </p>
+  </section>
+
+  <!-- ===================== 4. GRUPO ZN ===================== -->
+  <section id="grupo-zn" class="seccion-tema">
+    <h2>4. El grupo $(\mathbb{Z}_n, +)$: verificación de los axiomas</h2>
+
+    <p>Verifiquemos los cuatro axiomas de grupo para $(\mathbb{Z}_n,+)$, usando el César:</p>
+
+    <div class="caja caja-definicion">
+      <h3>1. Cerradura</h3>
+      <p>
+        Para cualesquiera $a,b \in \mathbb{Z}_n$, $(a+b) \bmod n$ siempre cae en
+        $\{0,\dots,n-1\}$ por definición del residuo: sumar dos desplazamientos siempre
+        produce otro desplazamiento válido.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>2. Asociatividad</h3>
+      <p>
+        $(a+b)+c \equiv a+(b+c) \pmod n$ para todos $a,b,c \in \mathbb{Z}_n$: se hereda
+        directamente de la asociatividad de la suma de enteros.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>3. Identidad</h3>
+      <p>
+        El elemento $0$ satisface $0+a=a+0=a$ para todo $a$: cifrar con $k=0$ es
+        $E_0(x)=x$, deja el mensaje exactamente igual.
+      </p>
+    </div>
+
+    <div class="caja caja-definicion">
+      <h3>4. Inversos</h3>
+      <p>
+        Para cada $k \in \mathbb{Z}_n$ (con $k\neq 0$), su inverso aditivo es $n-k$, ya que
+        $k+(n-k)=n\equiv 0 \pmod n$. Por eso $D_k = E_{n-k}$: descifrar con $k$ es lo mismo
+        que cifrar con $n-k$, y aplicar $E_k$ seguido de $D_k$ regresa al original. Compruébalo
+        en la Actividad 1.
+      </p>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <p>
+        Los cuatro axiomas se cumplen: $(\mathbb{Z}_n,+)$ es un grupo, de orden $n$. A
+        diferencia del <a href="../permutaciones/index.html">grupo de permutaciones
+        $S_9$</a> visto en el tema anterior, <strong>$(\mathbb{Z}_n,+)$ sí es abeliano</strong>
+        (conmutativo): $a+b=b+a$ siempre, sin importar el orden. Puedes comprobarlo tú mismo
+        en la Actividad 2.
+      </p>
+      <p>
+        De hecho, cada $E_k$ es, vista como función del alfabeto en sí mismo, una
+        <strong>permutación</strong> concreta: la potencia $k$-ésima del ciclo de longitud
+        $n$ que manda cada símbolo al siguiente, $(0\;1\;2\;\cdots\;n{-}1)$. El cifrado César
+        y el grupo de permutaciones son, en el fondo, la misma idea.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 5. SUBGRUPOS ===================== -->
+  <section id="subgrupos" class="seccion-tema">
+    <h2>5. Subgrupos cíclicos y orden de un elemento</h2>
+
+    <div class="caja caja-definicion">
+      <h3>Subgrupo cíclico generado por k</h3>
+      <p>
+        Dado $k \in \mathbb{Z}_n$, sus múltiplos $0\cdot k, 1\cdot k, 2\cdot k, \dots$ (todos
+        módulo $n$) eventualmente regresan a $0$. Al menor entero positivo $m$ tal que
+        $m\cdot k \equiv 0 \pmod n$ se le llama el <strong>orden</strong> de $k$, y al conjunto
+      </p>
+      <p>$$ \langle k \rangle = \{0, k, 2k, \dots, (m-1)k\} \pmod n $$</p>
+      <p>se le llama <strong>subgrupo cíclico generado por $k$</strong>.</p>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Cómo calcular el orden</h3>
+      <p>El orden de $k$ en $(\mathbb{Z}_n,+)$ es</p>
+      <p>$$ \text{orden}(k) = \frac{n}{\gcd(k,n)}. $$</p>
+      <p>
+        En particular, si $\gcd(k,n)=1$ el orden es $n$: ese $k$ genera todo
+        $\mathbb{Z}_n$, es decir, es equivalente (salvo módulo $n$) a aplicar el
+        desplazamiento $k$ repetidamente para recorrer los $n$ símbolos antes de regresar al
+        inicio.
+      </p>
+    </div>
+
+    <details class="solucion">
+      <summary>Ejemplo A: un subgrupo pequeño</summary>
+      <div class="contenido-solucion">
+        <p>
+          Sea $n=27$, $k=9$. Como $\gcd(9,27)=9$, el orden de $9$ es $27/9=3$, y
+          $\langle 9\rangle=\{0,9,18\}$: en efecto, $9+9+9=27\equiv 0\pmod{27}$.
+        </p>
+      </div>
+    </details>
+
+    <details class="solucion">
+      <summary>Ejemplo B: un generador de todo $\mathbb{Z}_{27}$</summary>
+      <div class="contenido-solucion">
+        <p>
+          Sea $n=27$, $k=5$. Como $\gcd(5,27)=1$, el orden de $5$ es $27$:
+          $\langle 5\rangle = \mathbb{Z}_{27}$ completo. Desplazar repetidamente de 5 en 5
+          recorre los 27 símbolos del alfabeto antes de regresar a $0$.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 6. ACTIVIDAD 1 ===================== -->
+  <section id="actividad1" class="seccion-tema">
+    <h2>6. Actividad interactiva: cifrador y descifrador</h2>
+    <p>
+      Escribe un mensaje y elige un desplazamiento $k$. Verás el cifrado letra por letra, con
+      la congruencia aplicada a cada una, y una verificación automática de que descifrar el
+      resultado con el mismo $k$ regresa exactamente al mensaje original.
+    </p>
+
+    <div class="campo">
+      <label for="act1-mensaje">Mensaje a cifrar</label>
+      <input type="text" id="act1-mensaje" value="HOLA MUNDO" maxlength="80">
+    </div>
+
+    <div id="act1-control-k"></div>
+
+    <div class="grupo-botones">
+      <button id="act1-boton-aleatorio" type="button" class="boton boton-secundario">k aleatorio</button>
+    </div>
+
+    <h3>Mensaje cifrado</h3>
+    <p id="act1-resultado" class="texto-cifrado"></p>
+
+    <h3>Desglose letra por letra</h3>
+    <ul id="act1-pasos-cifrado" class="lista-pasos-cifrado"></ul>
+
+    <p id="act1-mensaje-verificacion" class="aviso aviso-info" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- ===================== 7. ACTIVIDAD 2 ===================== -->
+  <section id="actividad2" class="seccion-tema">
+    <h2>7. Actividad interactiva: reloj modular</h2>
+    <p>
+      Elige un punto de partida $x$ y un desplazamiento $k$: el reloj modular resalta $x$
+      (en azul), el destino $(x+k) \bmod n$ (en dorado), y la flecha entre ambos. El botón
+      «Comparar» confirma que $x+k$ y $k+x$ siempre coinciden en $\mathbb{Z}_n$.
+    </p>
+
+    <div class="rejilla-constructores">
+      <div id="act2-control-x"></div>
+      <div id="act2-control-k"></div>
+    </div>
+
+    <div id="act2-reloj" class="reloj-modular" aria-hidden="true"></div>
+
+    <p id="act2-mensaje-resultado" class="aviso aviso-info" role="status" aria-live="polite"></p>
+
+    <div class="grupo-botones">
+      <button id="act2-boton-comparar" type="button" class="boton boton-primario">Comparar x+k vs k+x</button>
+    </div>
+
+    <p id="act2-mensaje-conmutatividad" class="aviso aviso-info" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- ===================== 8. CUESTIONARIO ===================== -->
+  <section id="quiz" class="seccion-tema">
+    <h2>8. Mini cuestionario de autoevaluación</h2>
+    <p>
+      Responde las siguientes preguntas para repasar el tema. Recibirás retroalimentación
+      inmediata en cada una; nada de lo que respondas se guarda ni se envía a ningún lado.
+    </p>
+
+    <form id="quiz-formulario">
+      <div id="quiz-preguntas"></div>
+
+      <div class="grupo-botones">
+        <button id="quiz-boton-calificar" type="button" class="boton boton-primario">Ver calificación</button>
+        <button id="quiz-boton-reiniciar" type="button" class="boton boton-secundario">Reintentar</button>
+      </div>
+
+      <p id="quiz-calificacion" class="aviso aviso-info calificacion-final" role="status" aria-live="assertive"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="js/cifrado-cesar-datos.js"></script>
+<script src="js/cifrado-cesar-comun.js"></script>
+<script src="js/cifrado-cesar-actividad1.js"></script>
+<script src="js/cifrado-cesar-actividad2.js"></script>
+<script src="js/cifrado-cesar-quiz.js"></script>
+<script src="js/cifrado-cesar-main.js"></script>
+</body>
+</html>

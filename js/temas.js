@@ -39,5 +39,14 @@ window.TEMAS = [
     ruta: "temas/permutaciones/index.html",
     estado: "disponible",
     orden: 4
+  },
+  {
+    id: "cifrado-cesar",
+    titulo: "Cifrado César",
+    descripcionCorta:
+      "El cifrado César es solo una suma módulo n: (Zn, +) es un grupo abeliano, y cada desplazamiento es una permutación del alfabeto. Dos actividades interactivas y un reloj modular.",
+    ruta: "temas/cifrado-cesar/index.html",
+    estado: "disponible",
+    orden: 5
   }
 ];
