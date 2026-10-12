@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Números complejos — Álgebra Superior</title>
+<meta name="description" content="La geometría de la multiplicación de números complejos: multiplicar es girar y escalar. Cuatro actividades interactivas en el plano complejo.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="css/numeros-complejos.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#plano">El plano complejo</a></li>
+    <li><a href="#suma">La suma</a></li>
+    <li><a href="#producto">El producto</a></li>
+    <li><a href="#giro-i">Multiplicar por i</a></li>
+    <li><a href="#matriz">Transformación del plano</a></li>
+    <li><a href="#actividad1">Actividad 1</a></li>
+    <li><a href="#actividad2">Actividad 2</a></li>
+    <li><a href="#actividad3">Actividad 3</a></li>
+    <li><a href="#actividad4">Actividad 4</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Números complejos: la geometría de multiplicar</h1>
+  <p class="introduccion-tema">
+    Sumar números complejos es desplazar puntos; multiplicarlos es mucho más interesante:
+    es <strong>girar y estirar</strong> el plano completo. Aquí veremos por qué, con
+    figuras que puedes mover.
+  </p>
+
+  <!-- ===================== 1. EL PLANO COMPLEJO ===================== -->
+  <section id="plano" class="seccion-tema">
+    <h2>1. El plano complejo</h2>
+    <p>
+      Un número complejo $z = a + bi$ (con $a, b$ reales e $i^2 = -1$) se dibuja como el punto
+      $(a, b)$ del plano: la parte real en el eje horizontal y la parte imaginaria en el vertical.
+      También lo podemos ver como la flecha que va del origen a ese punto.
+    </p>
+    <p>
+      Esa flecha tiene una longitud y una dirección. La longitud es el <strong>módulo</strong>
+      $r = |z| = \sqrt{a^2 + b^2}$ y el ángulo que forma con el eje real es el
+      <strong>argumento</strong> $\theta = \arg z$. Entonces
+    </p>
+    <p>$$ z = a + bi = r(\cos\theta + i\,\sin\theta). $$</p>
+    <figure class="figura-plano">
+      <div id="fig-polar"></div>
+      <figcaption>Un complejo $z$ con su módulo $r$ y su argumento $\theta$.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== 2. LA SUMA ===================== -->
+  <section id="suma" class="seccion-tema">
+    <h2>2. La suma es una traslación</h2>
+    <p>
+      Para sumar, se suman las partes real e imaginaria por separado:
+      $(a+bi)+(c+di) = (a+c)+(b+d)i$. Geométricamente es la regla del paralelogramo: sumar $w$
+      a $z$ <em>desplaza</em> $z$ siguiendo la flecha de $w$. Nada se gira ni se estira.
+    </p>
+    <figure class="figura-plano">
+      <div id="fig-suma"></div>
+      <figcaption>$z + w$ es la diagonal del paralelogramo formado por $z$ y $w$.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== 3. EL PRODUCTO ===================== -->
+  <section id="producto" class="seccion-tema">
+    <h2>3. El producto: girar y escalar</h2>
+    <p>
+      Con la multiplicación pasa algo muy distinto. Escribimos $z = r(\cos\alpha + i\sin\alpha)$ y
+      $w = s(\cos\beta + i\sin\beta)$. Al multiplicar y usar las identidades de suma de ángulos,
+    </p>
+    <p>
+      $$ zw = rs\big[(\cos\alpha\cos\beta - \sin\alpha\sin\beta) + i(\sin\alpha\cos\beta + \cos\alpha\sin\beta)\big]
+      = rs\big[\cos(\alpha+\beta) + i\sin(\alpha+\beta)\big]. $$
+    </p>
+    <div class="caja caja-definicion">
+      <h3>Regla geométrica del producto</h3>
+      <p>
+        $$ |zw| = |z|\,|w| \qquad\text{y}\qquad \arg(zw) = \arg z + \arg w. $$
+      </p>
+      <p>Los módulos se multiplican (escalamiento) y los ángulos se suman (giro).</p>
+    </div>
+    <p>
+      Así, multiplicar por $w$ equivale a <strong>girar</strong> un ángulo $\arg w$ y
+      <strong>escalar</strong> por $|w|$. Si $|w| = 1$ es un giro puro; si $\arg w = 0$ es un
+      estiramiento puro. Pruébalo en la Actividad 1.
+    </p>
+  </section>
+
+  <!-- ===================== 4. MULTIPLICAR POR i ===================== -->
+  <section id="giro-i" class="seccion-tema">
+    <h2>4. Multiplicar por $i$: un cuarto de vuelta</h2>
+    <p>
+      Como $i$ tiene módulo $1$ y argumento $90^\circ$, multiplicar por $i$ gira cualquier punto
+      $90^\circ$ en sentido antihorario. Repetirlo da la secuencia $z,\ iz,\ i^2z,\ i^3z,\ i^4z = z$.
+      Por eso $i^2 = -1$ tiene sentido geométrico: dos cuartos de vuelta son media vuelta, que
+      manda cada punto a su opuesto.
+    </p>
+    <figure class="figura-plano">
+      <div id="fig-giro-i"></div>
+      <figcaption>Cuatro giros de $90^\circ$ devuelven $z$ a su lugar: $i^4 = 1$.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== 5. TRANSFORMACIÓN DEL PLANO ===================== -->
+  <section id="matriz" class="seccion-tema">
+    <h2>5. Multiplicar por $z$ transforma todo el plano</h2>
+    <p>
+      La función $p \mapsto zp$ no solo mueve un punto: toma <em>todo</em> el plano y lo gira y
+      escala a la vez, manteniendo los ángulos y las formas (es una <strong>semejanza</strong>).
+      Si $z = a + bi$, la imagen de $1$ es $z$ y la imagen de $i$ es $iz = -b + ai$, así que en
+      coordenadas la transformación es la matriz
+    </p>
+    <p>$$ \begin{pmatrix} a & -b \\ b & a \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix}, $$</p>
+    <p>
+      cuyas columnas son justamente las imágenes de $1$ e $i$. Es una rotación por $\arg z$
+      seguida de una homotecia de razón $|z|$. En la Actividad 2 verás cómo se deforma una
+      cuadrícula.
+    </p>
+  </section>
+
+  <!-- ===================== ACTIVIDAD 1 ===================== -->
+  <section id="actividad1" class="seccion-tema">
+    <h2>Actividad 1: módulos que se multiplican, ángulos que se suman</h2>
+    <p>
+      Arrastra los puntos $z$ y $w$ (o selecciónalos y usa las flechas del teclado; con Shift
+      avanzan más). Observa el producto $zw$ en verde y los arcos que muestran los ángulos.
+    </p>
+    <div class="zona-actividad">
+      <figure class="figura-plano">
+        <div id="act1-plano"></div>
+        <figcaption>Azul: $z$. Ámbar: $w$. Verde: $zw$.</figcaption>
+      </figure>
+      <div>
+        <div class="grupo-botones">
+          <button type="button" class="boton boton-secundario" id="act1-ej-i">$w = i$</button>
+          <button type="button" class="boton boton-secundario" id="act1-ej-menos1">$w = -1$</button>
+          <button type="button" class="boton boton-secundario" id="act1-ej-conj">$w = \bar z$</button>
+          <button type="button" class="boton boton-secundario" id="act1-ej-inicial">Restablecer</button>
+        </div>
+        <div class="lecturas-complejas">
+          <div class="formula-dinamica" id="act1-lectura-z"></div>
+          <div class="formula-dinamica" id="act1-lectura-w"></div>
+          <div class="formula-dinamica" id="act1-lectura-producto"></div>
+          <div class="formula-dinamica" id="act1-lectura-angulo"></div>
+        </div>
+        <p id="act1-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACTIVIDAD 2 ===================== -->
+  <section id="actividad2" class="seccion-tema">
+    <h2>Actividad 2: la cuadrícula deformada</h2>
+    <p>
+      Mueve $z$ y observa cómo la figura y la cuadrícula se transforman al multiplicar por $z$. El
+      deslizador $t$ hace el recorrido gradual: gira $t\cdot\arg z$ y escala $|z|^t$. Las flechas
+      muestran dónde caen $1$ y $i$.
+    </p>
+    <div class="zona-actividad">
+      <figure class="figura-plano">
+        <div id="act2-plano"></div>
+        <figcaption>Discontinuo: la figura original. Relleno: la figura multiplicada por el $z$ parcial.</figcaption>
+      </figure>
+      <div>
+        <div class="campo">
+          <label for="act2-t">Avance $t$ (0 = sin transformar, 1 = multiplicar por $z$)</label>
+          <div class="fila-rango">
+            <input type="range" id="act2-t" min="0" max="1" step="0.01" value="1">
+          </div>
+        </div>
+        <div class="grupo-botones">
+          <button type="button" class="boton boton-primario" id="act2-animar">Animar</button>
+          <button type="button" class="boton boton-secundario" id="act2-ej-i">$z = i$</button>
+          <button type="button" class="boton boton-secundario" id="act2-ej-2">$z = 2$</button>
+          <button type="button" class="boton boton-secundario" id="act2-ej-mitad">$z = \tfrac12$</button>
+          <button type="button" class="boton boton-secundario" id="act2-ej-menos1">$z = -1$</button>
+          <button type="button" class="boton boton-secundario" id="act2-ej-1mas-i">$z = 1+i$</button>
+        </div>
+        <div class="lecturas-complejas">
+          <div class="formula-dinamica" id="act2-lectura-t"></div>
+          <div class="formula-dinamica" id="act2-lectura-matriz"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACTIVIDAD 3 ===================== -->
+  <section id="actividad3" class="seccion-tema">
+    <h2>Actividad 3: potencias de $z$</h2>
+    <p>
+      Multiplicar por $z$ una y otra vez da $z, z^2, z^3,\dots$ Cada paso gira $\arg z$ y escala
+      $|z|$, así que los puntos trazan una espiral. Si $|z| = 1$ solo giran: caen sobre el círculo
+      unitario.
+    </p>
+    <div class="zona-actividad">
+      <figure class="figura-plano">
+        <div id="act3-plano"></div>
+        <figcaption>Las potencias de $z$ unidas en orden.</figcaption>
+      </figure>
+      <div>
+        <div class="campo">
+          <label for="act3-n">Cantidad de potencias</label>
+          <div class="fila-rango">
+            <input type="range" id="act3-n" min="2" max="24" step="1" value="8">
+          </div>
+        </div>
+        <div class="grupo-botones">
+          <button type="button" class="boton boton-secundario" id="act3-unitario">Llevar $|z|$ a $1$</button>
+          <button type="button" class="boton boton-secundario" id="act3-ej-sexto">$z = e^{i\pi/3}$</button>
+        </div>
+        <div class="formula-dinamica" id="act3-lectura"></div>
+        <p id="act3-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACTIVIDAD 4 ===================== -->
+  <section id="actividad4" class="seccion-tema">
+    <h2>Actividad 4: raíces de la unidad</h2>
+    <p>
+      Las soluciones de $z^n = 1$ son $\omega^k$ con $\omega = e^{2\pi i/n}$. Son los vértices de un
+      polígono regular de $n$ lados, y multiplicar por $\omega$ gira el polígono un vértice.
+    </p>
+    <div class="zona-actividad">
+      <figure class="figura-plano">
+        <div id="act4-plano"></div>
+        <figcaption>Las $n$ raíces $n$-ésimas de la unidad.</figcaption>
+      </figure>
+      <div>
+        <div class="campo">
+          <label for="act4-n">Número de raíces $n$</label>
+          <div class="fila-rango">
+            <input type="range" id="act4-n" min="2" max="16" step="1" value="6">
+          </div>
+        </div>
+        <div class="grupo-botones">
+          <button type="button" class="boton boton-primario" id="act4-paso">Multiplicar por $\omega$</button>
+        </div>
+        <div class="lecturas-complejas">
+          <div class="formula-dinamica" id="act4-lectura-omega"></div>
+          <div class="formula-dinamica" id="act4-lectura-paso"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="js/numeros-complejos-comun.js"></script>
+<script src="js/numeros-complejos-actividad1.js"></script>
+<script src="js/numeros-complejos-actividad2.js"></script>
+<script src="js/numeros-complejos-actividad3.js"></script>
+<script src="js/numeros-complejos-actividad4.js"></script>
+<script src="js/numeros-complejos-main.js"></script>
+</body>
+</html>

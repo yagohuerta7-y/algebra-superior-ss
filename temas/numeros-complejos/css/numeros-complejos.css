@@ -1,0 +1,96 @@
+/* Estilos específicos del tema "Números complejos" */
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+.introduccion-tema {
+  color: var(--color-texto-tenue);
+  font-size: 1.05rem;
+}
+
+.seccion-tema {
+  scroll-margin-top: 4rem;
+}
+
+.formula-dinamica {
+  text-align: center;
+  margin: var(--espacio-2) 0;
+  overflow-x: auto;
+}
+
+/* --- Plano complejo (SVG) --- */
+.figura-plano {
+  margin: var(--espacio-3) auto;
+  max-width: 30rem;
+}
+
+.figura-plano figcaption {
+  color: var(--color-texto-tenue);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: var(--espacio-1);
+}
+
+.plano-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  background: var(--color-fondo-tarjeta);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+}
+
+.pc-grilla { stroke: var(--color-borde); stroke-width: 1; }
+.pc-eje { stroke: var(--color-texto-tenue); stroke-width: 1.5; }
+.pc-marca { fill: var(--color-texto-tenue); font-size: 11px; }
+.pc-circulo-unidad {
+  fill: none;
+  stroke: var(--color-texto-tenue);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+}
+
+/* Paleta de los elementos dibujados: cada clase fija --c. */
+.pc-z { --c: var(--color-primario); }
+.pc-w { --c: var(--color-acento-texto); }
+.pc-p { --c: var(--color-exito); }
+.pc-ref { --c: var(--color-texto-tenue); }
+.pc-guia { --c: var(--color-texto-tenue); stroke-dasharray: 5 4; stroke-width: 1.5; }
+
+.pc-linea { stroke: var(--c, var(--color-texto)); stroke-width: 2.5; fill: none; }
+.pc-linea.pc-casa { fill: var(--c); fill-opacity: 0.2; }
+.pc-linea.pc-arco { stroke-width: 3; }
+.pc-linea.pc-rejilla { stroke: var(--color-secundario); stroke-width: 1; opacity: 0.45; }
+.pc-linea.pc-original { stroke: var(--color-texto-tenue); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.pc-linea.pc-rayo { stroke: var(--color-borde); stroke-width: 1.5; }
+.pc-linea.pc-guia { stroke: var(--color-texto-tenue); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.pc-relleno { fill: var(--c, var(--color-texto)); stroke: none; }
+.pc-texto {
+  fill: var(--c, var(--color-texto));
+  stroke: var(--color-fondo-tarjeta);
+  stroke-width: 3px;
+  paint-order: stroke;
+  font: 600 14px sans-serif;
+}
+
+/* Puntos arrastrables */
+.pc-punto { cursor: grab; outline: none; }
+.pc-punto:active { cursor: grabbing; }
+.pc-zona { fill: transparent; }
+.pc-punto:focus-visible .pc-zona,
+.pc-punto:hover .pc-zona {
+  fill: var(--color-acento-suave);
+  stroke: var(--color-foco);
+  stroke-width: 2px;
+}
+.pc-nucleo { stroke: var(--color-fondo-tarjeta); stroke-width: 2px; }
+
+.lecturas-complejas {
+  display: grid;
+  gap: var(--espacio-1);
+  margin: var(--espacio-2) 0;
+}

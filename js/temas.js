@@ -48,5 +48,14 @@ window.TEMAS = [
     ruta: "temas/cifrado-cesar/index.html",
     estado: "disponible",
     orden: 5
+  },
+  {
+    id: "numeros-complejos",
+    titulo: "Números complejos",
+    descripcionCorta:
+      "Multiplicar números complejos es girar y escalar el plano: módulos que se multiplican, ángulos que se suman, potencias y raíces de la unidad. Cuatro actividades interactivas.",
+    ruta: "temas/numeros-complejos/index.html",
+    estado: "disponible",
+    orden: 6
   }
 ];
