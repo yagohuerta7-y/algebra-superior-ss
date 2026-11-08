@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campos — Álgebra Superior</title>
+<meta name="description" content="Campos desde cero: dónde se puede dividir. ℚ, ℝ, ℂ, ℤ/pℤ, el campo de dos elementos, un campo de cuatro elementos y ℚ(√2). Cuatro actividades interactivas.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="../../css/estructuras.css">
+<link rel="stylesheet" href="css/campos.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#motivacion">Motivación</a></li>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#clasicos">Ejemplos clásicos</a></li>
+    <li><a href="#modular">ℤ/pℤ</a></li>
+    <li><a href="#finitos">Campos finitos</a></li>
+    <li><a href="#raiz2">ℚ(√2)</a></li>
+    <li><a href="#noejemplos">No-ejemplos</a></li>
+    <li><a href="#demostraciones">Demostraciones</a></li>
+    <li><a href="#ejercicios">Ejercicios</a></li>
+    <li><a href="#conexion">Conexión</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Campos</h1>
+  <p class="introduccion-tema">
+    Un campo es un lugar donde puedes <strong>sumar, restar, multiplicar y dividir</strong> (entre
+    cualquier cosa que no sea cero) con todas las reglas de siempre. Tercer tema de la cadena
+    <strong>grupos → anillos → campos → espacios vectoriales</strong>.
+  </p>
+
+  <!-- ===================== 1. MOTIVACIÓN ===================== -->
+  <section id="motivacion" class="seccion-tema">
+    <h2>1. Motivación: ¿dónde se puede dividir?</h2>
+    <p>
+      Resolver $3x = 6$ es fácil en $\mathbb{Z}$: $x = 2$. Pero $3x = 7$ no tiene solución entera,
+      porque «dividir entre $3$» nos saca de $\mathbb{Z}$. Para poder despejar siempre hace falta que
+      todo número distinto de cero tenga un inverso multiplicativo. Los conjuntos donde eso ocurre
+      son los <strong>campos</strong>.
+    </p>
+    <p>
+      Esto importa porque dividir es la herramienta de fondo de casi todo el álgebra lineal:
+      resolver sistemas de ecuaciones, invertir matrices, hallar proporciones. Por eso los
+      <em>escalares</em> de un espacio vectorial (el último tema) son siempre elementos de un
+      campo.
+    </p>
+  </section>
+
+  <!-- ===================== 2. DEFINICIÓN ===================== -->
+  <section id="definicion" class="seccion-tema">
+    <h2>2. Definición</h2>
+    <div class="caja caja-definicion">
+      <h3>Campo</h3>
+      <p>Un <strong>campo</strong> es un conjunto $K$ con dos operaciones, $+$ y $\cdot$, tales que:</p>
+      <ol>
+        <li>$(K, +)$ es un grupo abeliano, con neutro $0$.</li>
+        <li>$(K \setminus \{0\}, \cdot)$ es un grupo abeliano, con neutro $1$.</li>
+        <li>Se cumple la distributividad: $a(b + c) = ab + ac$.</li>
+      </ol>
+    </div>
+    <p>
+      <strong>En palabras:</strong> tanto la suma como el producto (sin el $0$) son grupos
+      conmutativos, y la distributividad las conecta. Es lo mismo que decir: un campo es un
+      <strong>anillo conmutativo con unidad $1 \neq 0$ donde todo elemento distinto de cero tiene
+      inverso multiplicativo</strong>. Y como $a \cdot 0 = 0$ (lo vimos en anillos), quitamos el
+      $0$ para que el producto pueda ser un grupo.
+    </p>
+    <p>
+      <strong>Dos consecuencias inmediatas</strong> (el segundo punto se demuestra más abajo):
+    </p>
+    <ul>
+      <li>En un campo se puede dividir: $a / b = a \cdot b^{-1}$ para $b \neq 0$.</li>
+      <li>Un campo no tiene divisores de cero: es un dominio entero.</li>
+    </ul>
+  </section>
+
+  <!-- ===================== 3. CLÁSICOS ===================== -->
+  <section id="clasicos" class="seccion-tema">
+    <h2>3. Ejemplos clásicos</h2>
+    <ul>
+      <li>
+        <strong>$\mathbb{Q}$ y $\mathbb{R}$</strong>: el inverso de $a \neq 0$ es $1/a$.
+      </li>
+      <li>
+        <strong>$\mathbb{C}$</strong>: el inverso de $z = a + bi \neq 0$ es
+        $\dfrac{1}{z} = \dfrac{a - bi}{a^2 + b^2} = \dfrac{\bar z}{|z|^2}$.
+        Geométricamente, es girar al revés y estirar por $1/|z|$: lo viste en
+        <a href="../numeros-complejos/index.html#producto">Números complejos</a>
+        (módulos que se multiplican, ángulos que se suman).
+      </li>
+    </ul>
+    <div class="caja caja-enunciado">
+      <h3>¿Qué le falta a $\mathbb{Z}$?</h3>
+      <p>
+        $\mathbb{Z}$ es anillo conmutativo con unidad y sin divisores de cero, pero solo $1$ y $-1$
+        tienen inverso. Al agregarle todas las fracciones $p/q$ se obtiene $\mathbb{Q}$, el campo
+        más pequeño que contiene a $\mathbb{Z}$.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 4. Z/pZ ===================== -->
+  <section id="modular" class="seccion-tema">
+    <h2>4. ℤ/pℤ: relojes que sí son campos</h2>
+    <p>
+      En el tema de anillos vimos que $\mathbb{Z}_n$ (aritmética del reloj) es un anillo, y que en
+      $\mathbb{Z}_6$ hay divisores de cero: $2 \cdot 3 = 0$. Entonces $\mathbb{Z}_6$ <strong>no es
+      campo</strong>: el $2$, el $3$ y el $4$ no tienen inverso. En cambio, cuando el módulo es
+      <strong>primo</strong>, todo elemento no nulo es invertible:
+    </p>
+    <div class="caja caja-enunciado">
+      <p>$\mathbb{Z}_n$ es un campo si y solo si $n$ es primo.</p>
+    </div>
+    <p>
+      Se escribe $\mathbb{F}_p = \mathbb{Z}/p\mathbb{Z}$ cuando $p$ es primo. Descúbrelo tú:
+    </p>
+
+    <h3 id="actividad1">Actividad 1: buscador de inverso en $\mathbb{Z}_n$</h3>
+    <div class="caja">
+      <div class="control-nm">
+        <div class="campo">
+          <label for="act1-n">Módulo $n$ (de 2 a 30)</label>
+          <input type="number" id="act1-n" min="2" max="30" value="7">
+        </div>
+        <div class="campo">
+          <label for="act1-a">Elemento $a$ = <span id="act1-a-valor">3</span></label>
+          <div class="fila-rango">
+            <input type="range" id="act1-a" min="0" max="6" value="3">
+          </div>
+        </div>
+      </div>
+      <div class="franja-inverso" id="act1-franja"></div>
+      <p id="act1-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      <p id="act1-resumen"></p>
+      <p class="idea-previa">
+        Prueba con $n = 7$, luego con $n = 12$. ¿Qué elementos se quedan sin inverso cuando $n$ no
+        es primo? ¿Qué tienen en común con $n$?
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 5. CAMPOS FINITOS ===================== -->
+  <section id="finitos" class="seccion-tema">
+    <h2>5. Campos con pocos elementos</h2>
+    <p>
+      Un campo no tiene que ser infinito. El más pequeño de todos es
+      $\mathbb{F}_2 = \{0, 1\}$: los <strong>bits</strong>, con la suma XOR y el producto AND.
+      Aquí $1 + 1 = 0$, así que $-1 = 1$. Sirve en computación, en códigos para detectar errores y,
+      como verás, en los espacios vectoriales de bits.
+    </p>
+    <p>
+      Hay un campo de $4$ elementos, pero <strong>no es $\mathbb{Z}_4$</strong> (ahí $2 \cdot 2 = 0$).
+      Se llama $\mathbb{F}_4 = \{0, 1, \alpha, \alpha + 1\}$ con $1 + 1 = 0$ y la regla
+      $\alpha^2 = \alpha + 1$, de la misma manera en que $\mathbb{C}$ se obtiene de $\mathbb{R}$
+      declarando $i^2 = -1$. En general existe un campo con $q$ elementos si y solo si $q$ es una
+      potencia de un primo ($2, 3, 4, 5, 7, 8, 9, 11, \dots$; no existe de $6$ ni de $10$ elementos).
+    </p>
+
+    <h3 id="actividad2">Actividad 2: tablas de campos finitos</h3>
+    <div class="caja">
+      <div class="control-nm">
+        <div class="campo">
+          <label for="act2-campo">Elige un campo</label>
+          <select id="act2-campo">
+            <option value="f2">𝔽₂ (2 elementos)</option>
+            <option value="f3">𝔽₃ (3 elementos)</option>
+            <option value="f4" selected>𝔽₄ (4 elementos)</option>
+            <option value="f5">𝔽₅ (5 elementos)</option>
+          </select>
+        </div>
+      </div>
+      <p id="act2-nota"></p>
+      <div class="rejilla-dos">
+        <div>
+          <h4>Suma</h4>
+          <div id="act2-suma"></div>
+        </div>
+        <div>
+          <h4>Producto (● marca los pares con producto $1$)</h4>
+          <div id="act2-prod"></div>
+        </div>
+      </div>
+      <p id="act2-inversos"></p>
+      <p class="idea-previa">
+        En la tabla del producto, la fila del $0$ es toda de ceros, pero cualquier otra fila contiene
+        un $1$: eso es tener inverso.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 6. Q(√2) ===================== -->
+  <section id="raiz2" class="seccion-tema">
+    <h2>6. Un campo dentro de $\mathbb{R}$: $\mathbb{Q}(\sqrt{2})$</h2>
+    <p>
+      Considera los números de la forma $a + b\sqrt{2}$ con $a, b \in \mathbb{Q}$. Se suman y
+      multiplican sin salir de la familia:
+    </p>
+    <p>
+      $$(a + b\sqrt{2}) + (c + d\sqrt{2}) = (a + c) + (b + d)\sqrt{2},$$
+      $$(a + b\sqrt{2})(c + d\sqrt{2}) = (ac + 2bd) + (ad + bc)\sqrt{2}.$$
+    </p>
+    <p>
+      ¿Y los inversos? Se obtienen <strong>racionalizando</strong> el denominador: multiplicas arriba
+      y abajo por el «conjugado» $a - b\sqrt{2}$.
+    </p>
+    <p>
+      $$\frac{1}{a + b\sqrt{2}} = \frac{a - b\sqrt{2}}{(a + b\sqrt{2})(a - b\sqrt{2})} = \frac{a - b\sqrt{2}}{a^2 - 2b^2}.$$
+    </p>
+
+    <h3 id="actividad3">Actividad 3: invierte $a + b\sqrt{2}$</h3>
+    <div class="caja">
+      <div class="entradas-raiz">
+        <label for="act3-a">$a =$</label>
+        <input type="number" id="act3-a" value="1">
+        <label for="act3-b">$b =$</label>
+        <input type="number" id="act3-b" value="1">
+      </div>
+      <div class="grupo-botones">
+        <button type="button" class="boton boton-secundario" id="act3-ej1">$1 + \sqrt{2}$</button>
+        <button type="button" class="boton boton-secundario" id="act3-ej2">$3 + 2\sqrt{2}$</button>
+        <button type="button" class="boton boton-secundario" id="act3-ej3">$2 - \sqrt{2}$</button>
+      </div>
+      <div class="formula-dinamica" id="act3-resultado"></div>
+      <p id="act3-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ===================== 7. NO-EJEMPLOS ===================== -->
+  <section id="noejemplos" class="seccion-tema">
+    <h2>7. No-ejemplos y checklist</h2>
+    <p>
+      $\mathbb{Z}$ no es campo (falta dividir), $\mathbb{Z}[i]$ tampoco, las matrices $2 \times 2$ fallan
+      de dos maneras (no conmutan y no todas son invertibles) y $\mathbb{Z}_n$ con $n$ compuesto tiene
+      divisores de cero.
+    </p>
+
+    <h3 id="actividad4">Actividad 4: checklist de axiomas de campo</h3>
+    <div class="caja">
+      <p>
+        Compara especialmente $\mathbb{Z}_4$ con $\mathbb{F}_4$: ambos tienen cuatro elementos, pero
+        solo uno de los dos es campo.
+      </p>
+      <div id="act4-checklist"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. DEMOSTRACIONES ===================== -->
+  <section id="demostraciones" class="seccion-tema">
+    <h2>8. Demostraciones sencillas</h2>
+
+    <p class="idea-previa">Idea: multiplicar por el inverso para «despejar».</p>
+    <details class="demostracion">
+      <summary>Ver demostración: un campo no tiene divisores de cero</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Supón $ab = 0$ y $a \neq 0$. Como $a$ tiene inverso,
+          $b = 1 \cdot b = (a^{-1}a)\,b = a^{-1}(ab) = a^{-1} \cdot 0 = 0$.
+          Entonces $a = 0$ o $b = 0$. $\blacksquare$
+        </p>
+        <p>(Usamos $a^{-1}\cdot 0 = 0$, que ya demostramos en el tema de anillos.)</p>
+      </div>
+    </details>
+
+    <p class="idea-previa">
+      Idea: si $p$ es primo y $a$ no es múltiplo de $p$, entonces el máximo común divisor de $a$ y
+      $p$ es $1$, y el <em>teorema de Bézout</em> lo escribe como combinación de $a$ y $p$.
+    </p>
+    <details class="demostracion">
+      <summary>Ver demostración: $\mathbb{Z}_p$ es campo cuando $p$ es primo</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Ya sabemos que $\mathbb{Z}_p$ es un anillo conmutativo con unidad (tema de anillos).
+          Solo falta ver que todo $a \neq 0$ tiene inverso.
+        </p>
+        <p>
+          <strong>Hecho que usamos (Bézout):</strong> si $\gcd(a, p) = 1$, existen enteros $m, k$ con
+          $m a + k p = 1$. Por ejemplo, para $a = 3$ y $p = 7$ sirve $m = 5$ y $k = -2$:
+          $5 \cdot 3 + (-2)\cdot 7 = 15 - 14 = 1$. (Los obtienes con el algoritmo de Euclides.)
+        </p>
+        <p>
+          Sea $a \in \{1, \dots, p - 1\}$. Como $p$ es primo y $a < p$, sus únicos divisores comunes son
+          $1$, así que $\gcd(a, p) = 1$. Por Bézout hay $m, k$ con $ma + kp = 1$. Tomando residuos
+          módulo $p$, el término $kp$ vale $0$, y queda
+        </p>
+        <p>$$ m \cdot a \equiv 1 \pmod p. $$</p>
+        <p>
+          Entonces $m$ (módulo $p$) es el inverso de $a$. En el ejemplo, $3^{-1} = 5$ en
+          $\mathbb{Z}_7$: $3 \cdot 5 = 15 = 2\cdot 7 + 1$. $\blacksquare$
+        </p>
+        <p>
+          <strong>¿Y si $n$ no es primo?</strong> Escribe $n = rs$ con $1 < r, s < n$. Entonces
+          $r \cdot s = 0$ en $\mathbb{Z}_n$ con $r, s \neq 0$: hay divisores de cero, y por la
+          demostración anterior no puede ser campo.
+        </p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: racionalizar y usar que $\sqrt{2}$ no es racional.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $\mathbb{Q}(\sqrt{2})$ tiene inversos</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Sea $a + b\sqrt{2} \neq 0$ con $a, b$ racionales. Calculamos
+          $(a + b\sqrt{2})(a - b\sqrt{2}) = a^2 - 2b^2$.
+        </p>
+        <p>
+          <strong>Afirmación:</strong> $a^2 - 2b^2 \neq 0$. Si fuera $0$ y $b \neq 0$, tendríamos
+          $\sqrt{2} = |a/b|$, un número racional, y sabemos que $\sqrt{2}$ es irracional. Si fuera
+          $0$ y $b = 0$, entonces $a^2 = 0$, o sea $a = 0$, contra la hipótesis.
+        </p>
+        <p>
+          Entonces podemos dividir y
+          $\dfrac{1}{a + b\sqrt{2}} = \dfrac{a}{a^2 - 2b^2} + \dfrac{-b}{a^2 - 2b^2}\sqrt{2}$,
+          que tiene coeficientes racionales. $\blacksquare$
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 9. EJERCICIOS ===================== -->
+  <section id="ejercicios" class="seccion-tema">
+    <h2>9. Mini-ejercicios</h2>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 1</h3>
+      <p>Encuentra el inverso de $5$ en $\mathbb{Z}_{13}$.</p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Probando múltiplos de $5$: $5, 10, 15 = 2, 20 = 7, 25 = 12, 30 = 4, 35 = 9, 40 = 1$. Entonces
+            $5 \cdot 8 = 40 = 3\cdot 13 + 1$ y $5^{-1} = 8$.
+          </p>
+          <p>
+            Con Euclides: $13 = 2\cdot 5 + 3$, $5 = 1\cdot 3 + 2$, $3 = 1 \cdot 2 + 1$, y hacia atrás
+            $1 = 3 - 2 = 3 - (5 - 3) = 2\cdot 3 - 5 = 2(13 - 2\cdot 5) - 5 = 2 \cdot 13 - 5\cdot 5$.
+            Así $-5 \equiv 8$ es el inverso.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 2</h3>
+      <p>¿Es $\mathbb{Z}_9$ un campo? Justifica con un elemento concreto.</p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            No: $3 \cdot 3 = 9 = 0$, así que $3$ es un divisor de cero. Un campo no los tiene, y por
+            eso $3$ no puede tener inverso en $\mathbb{Z}_9$. Compruébalo con la Actividad 1.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 3</h3>
+      <p>
+        En $\mathbb{F}_4$ calcula $\alpha \cdot \alpha$ y $\alpha(\alpha + 1)$. ¿Cuál es el inverso de
+        $\alpha$?
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            $\alpha \cdot \alpha = \alpha + 1$ por definición. Luego
+            $\alpha(\alpha + 1) = \alpha^2 + \alpha = (\alpha + 1) + \alpha = 2\alpha + 1 = 1$, porque
+            $2\alpha = \alpha + \alpha = 0$. Entonces $\alpha^{-1} = \alpha + 1$.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 4</h3>
+      <p>
+        Calcula $\dfrac{1}{2 + \sqrt{2}}$ en la forma $c + d\sqrt{2}$ con $c, d$ racionales.
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            $a = 2$, $b = 1$, $a^2 - 2b^2 = 4 - 2 = 2$. Entonces
+            $\dfrac{1}{2 + \sqrt{2}} = \dfrac{2 - \sqrt{2}}{2} = 1 - \dfrac{1}{2}\sqrt{2}$.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== 10. CONEXIÓN ===================== -->
+  <section id="conexion" class="seccion-tema">
+    <h2>10. Conexión con el siguiente tema</h2>
+    <p>
+      Con un campo $K$ podemos sumar, restar, multiplicar y dividir. Los <strong>espacios
+      vectoriales</strong> usan ese poder para otra cosa: tomamos un grupo abeliano $V$ cuyos
+      elementos llamaremos <em>vectores</em>, y dejamos que los elementos de $K$, los
+      <em>escalares</em>, los «estiren». Por ejemplo, $\mathbb{R}^2$ son flechas con escalares en
+      $\mathbb{R}$, y $\mathbb{F}_2^n$ son cadenas de bits con escalares en $\mathbb{F}_2$.
+    </p>
+    <figure>
+      <div id="diagrama-campos"></div>
+      <figcaption>
+        Mapa de estructuras. Con ★ marcamos el campo; la flecha punteada muestra que un campo
+        aporta los escalares de un espacio vectorial.
+      </figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="../../js/estructuras-comun.js"></script>
+<script src="js/campos-comun.js"></script>
+<script src="js/campos-actividad1.js"></script>
+<script src="js/campos-actividad2.js"></script>
+<script src="js/campos-actividad3.js"></script>
+<script src="js/campos-actividad4.js"></script>
+<script src="js/campos-main.js"></script>
+</body>
+</html>

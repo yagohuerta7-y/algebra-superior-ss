@@ -1,0 +1,61 @@
+/* Estilos específicos del tema "Grupos" (los componentes compartidos viven en css/estructuras.css) */
+
+/* --- Polígono de la Actividad 2 --- */
+.figura-poligono {
+  margin: var(--espacio-2) auto;
+  max-width: 320px;
+}
+
+.poligono-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.poligono-contorno {
+  fill: var(--color-fondo-alterno);
+  stroke: var(--color-secundario);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.poligono-eje {
+  stroke: var(--color-texto-tenue);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+
+.poligono-eje-texto {
+  fill: var(--color-texto-tenue);
+  font-size: 11px;
+}
+
+.poligono-ranura {
+  fill: none;
+  stroke: var(--color-borde);
+  stroke-width: 1.5;
+}
+
+.vertice-poligono {
+  transition: transform 0.45s ease;
+}
+
+.vertice-circulo {
+  fill: hsl(var(--h, 0), var(--est-sat), var(--est-luz));
+  stroke: var(--color-texto);
+  stroke-width: 2;
+}
+
+.vertice-texto {
+  fill: var(--color-texto);
+  font-size: 18px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vertice-poligono {
+    transition: none;
+  }
+}

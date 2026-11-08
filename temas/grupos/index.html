@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grupos — Álgebra Superior</title>
+<meta name="description" content="Grupos desde cero: tablas de Cayley, simetrías del triángulo y del cuadrado, el grupo de Klein, ejemplos peculiares, no-ejemplos y demostraciones sencillas. Cuatro actividades interactivas.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="../../css/estructuras.css">
+<link rel="stylesheet" href="css/grupos.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#motivacion">Motivación</a></li>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#clasicos">Ejemplos clásicos</a></li>
+    <li><a href="#cayley">Tablas de Cayley</a></li>
+    <li><a href="#simetrias">Simetrías</a></li>
+    <li><a href="#klein">Klein</a></li>
+    <li><a href="#peculiares">Peculiares</a></li>
+    <li><a href="#noejemplos">No-ejemplos</a></li>
+    <li><a href="#demostraciones">Demostraciones</a></li>
+    <li><a href="#ejercicios">Ejercicios</a></li>
+    <li><a href="#conexion">Conexión</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Grupos</h1>
+  <p class="introduccion-tema">
+    Un grupo es la forma más simple de describir <strong>acciones que se pueden encadenar
+    y deshacer</strong>: girar una figura, sumar en un reloj, barajar cartas. Este es el primer
+    tema de una cadena de cuatro: <strong>grupos → anillos → campos → espacios vectoriales</strong>.
+  </p>
+
+  <!-- ===================== 1. MOTIVACIÓN ===================== -->
+  <section id="motivacion" class="seccion-tema">
+    <h2>1. Motivación: hacer y deshacer</h2>
+    <p>
+      Piensa en estas situaciones: girar una hoja de papel cuadrada, mover las manecillas de un
+      reloj, reetiquetar un Sudoku, dar vueltas a un cubo de Rubik. Aunque parezcan muy distintas,
+      comparten cuatro rasgos:
+    </p>
+    <ol>
+      <li>Puedes <strong>encadenar</strong> dos acciones y obtienes otra acción del mismo tipo.</li>
+      <li>El orden en que <strong>agrupas</strong> tres acciones seguidas no cambia el resultado.</li>
+      <li>Existe la acción de <strong>no hacer nada</strong>.</li>
+      <li>Toda acción se puede <strong>deshacer</strong> con otra acción.</li>
+    </ol>
+    <p>
+      Un <em>grupo</em> es exactamente la estructura matemática que captura estos cuatro rasgos.
+      Una vez que reconocemos el patrón, todo lo que demostremos sobre grupos sirve a la vez para
+      los giros, los relojes, los Sudokus y los cubos.
+    </p>
+  </section>
+
+  <!-- ===================== 2. DEFINICIÓN ===================== -->
+  <section id="definicion" class="seccion-tema">
+    <h2>2. Definición</h2>
+    <div class="caja caja-definicion">
+      <h3>Grupo</h3>
+      <p>
+        Un <strong>grupo</strong> es un conjunto $G$ con una operación $\ast$ que cumple:
+      </p>
+      <ol>
+        <li><strong>Cerradura:</strong> si $a, b \in G$, entonces $a \ast b \in G$.</li>
+        <li><strong>Asociatividad:</strong> $(a \ast b) \ast c = a \ast (b \ast c)$ para todos $a, b, c \in G$.</li>
+        <li><strong>Identidad:</strong> existe $e \in G$ tal que $e \ast a = a \ast e = a$ para todo $a \in G$.</li>
+        <li><strong>Inversos:</strong> para cada $a \in G$ existe $a^{-1} \in G$ con $a \ast a^{-1} = a^{-1} \ast a = e$.</li>
+      </ol>
+    </div>
+    <p>
+      <strong>En palabras:</strong> puedes combinar elementos sin salirte del conjunto (1),
+      no importa cómo pongas los paréntesis (2), hay un elemento que no hace nada (3) y todo
+      elemento tiene un «deshacer» (4). Si además $a \ast b = b \ast a$ siempre, el grupo se
+      llama <strong>abeliano</strong> (o conmutativo).
+    </p>
+    <div class="caja">
+      <h3>Notación que usaremos en los cuatro temas</h3>
+      <ul>
+        <li>
+          Operación genérica: $a \ast b$, con neutro $e$ e inverso $a^{-1}$. Cuando $\ast$ es una
+          composición, $a \ast b$ significa «primero $b$, luego $a$», igual que
+          $(f \circ g)(x) = f(g(x))$.
+        </li>
+        <li>
+          Cuando la operación es una suma: $a + b$, neutro $0$ y opuesto $-a$. Cuando es un
+          producto: $a \cdot b$, neutro $1$ e inverso $a^{-1}$.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 3. CLÁSICOS ===================== -->
+  <section id="clasicos" class="seccion-tema">
+    <h2>3. Ejemplos clásicos</h2>
+    <div class="envoltura-tabla">
+      <table class="tabla-resumen">
+        <caption>Algunos grupos conocidos</caption>
+        <thead>
+          <tr>
+            <th scope="col">Grupo</th>
+            <th scope="col">Neutro</th>
+            <th scope="col">Inverso de $a$</th>
+            <th scope="col">¿Abeliano?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">$(\mathbb{Z}, +)$</th><td>$0$</td><td>$-a$</td><td>Sí</td></tr>
+          <tr><th scope="row">$(\mathbb{Q}, +)$ y $(\mathbb{R}, +)$</th><td>$0$</td><td>$-a$</td><td>Sí</td></tr>
+          <tr><th scope="row">$(\mathbb{Z}_n, +)$</th><td>$0$</td><td>$n - a$ (si $a \neq 0$)</td><td>Sí</td></tr>
+          <tr><th scope="row">$(\mathbb{Q}\setminus\{0\}, \cdot)$</th><td>$1$</td><td>$1/a$</td><td>Sí</td></tr>
+          <tr><th scope="row">$(\mathbb{R}\setminus\{0\}, \cdot)$</th><td>$1$</td><td>$1/a$</td><td>Sí</td></tr>
+          <tr><th scope="row">$S_n$ (permutaciones de $n$ objetos)</th><td>identidad</td><td>permutación inversa</td><td>No, si $n \ge 3$</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Fíjate en que el <strong>conjunto</strong> y la <strong>operación</strong> van juntos:
+      $\mathbb{Q}$ es grupo con la suma, pero con el producto hay que quitar el $0$ (más sobre esto
+      en la sección de no-ejemplos).
+    </p>
+  </section>
+
+  <!-- ===================== 4. TABLAS DE CAYLEY ===================== -->
+  <section id="cayley" class="seccion-tema">
+    <h2>4. Tablas de Cayley: ver un grupo de un vistazo</h2>
+    <p>
+      Cuando un grupo es finito, podemos escribir <strong>todos</strong> los productos en una
+      tabla: la entrada de la fila $a$ y la columna $b$ es $a \ast b$. Es la <em>tabla de Cayley</em>.
+      Colorearla revela un patrón sorprendente:
+    </p>
+    <div class="caja caja-enunciado">
+      <p>
+        En la tabla de un grupo, <strong>cada elemento aparece exactamente una vez en cada fila y
+        en cada columna</strong>. (Al final de la página demostramos por qué.)
+      </p>
+    </div>
+
+    <h3 id="actividad1">Actividad 1: explora la tabla de $(\mathbb{Z}_n, +)$</h3>
+    <div class="caja">
+      <div class="control-nm">
+        <div class="campo">
+          <label for="act1-n">Elige $n$</label>
+          <select id="act1-n"></select>
+        </div>
+      </div>
+      <div class="grupo-botones">
+        <label class="opcion-casilla"><input type="checkbox" id="act1-color" checked> Colorear por resultado</label>
+        <label class="opcion-casilla"><input type="checkbox" id="act1-inversos"> Marcar pares de inversos (●)</label>
+      </div>
+      <div id="act1-tabla"></div>
+      <p class="idea-previa">
+        Prueba: activa «Marcar pares de inversos». Cada ● es una pareja $a + b = 0$. ¿Qué forma
+        tienen? ¿Por qué la tabla es simétrica respecto a la diagonal?
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 5. SIMETRÍAS ===================== -->
+  <section id="simetrias" class="seccion-tema">
+    <h2>5. Simetrías del triángulo y del cuadrado</h2>
+    <p>
+      Una <strong>simetría</strong> de una figura es un movimiento rígido que la deja ocupando el
+      mismo lugar. Las simetrías de un polígono regular de $n$ lados son $n$ <strong>giros</strong>
+      (múltiplos de $360^\circ/n$) y $n$ <strong>reflexiones</strong>: en total $2n$. Componer dos
+      simetrías da otra simetría, hacer «nada» es una simetría y todo movimiento se deshace con otro:
+      ¡es un grupo! Se llama el <strong>grupo diedral</strong> $D_n$.
+    </p>
+    <p>
+      Usaremos dos generadores: $r$ (giro de $360^\circ/n$ en sentido horario) y $s$ (reflexión
+      respecto al eje vertical). Todo elemento se escribe $r^k$ o $r^k s$.
+    </p>
+
+    <h3 id="actividad2">Actividad 2: juega con las simetrías</h3>
+    <div class="caja">
+      <div class="control-nm">
+        <div class="campo">
+          <label for="act2-n">Polígono</label>
+          <select id="act2-n">
+            <option value="3">Triángulo equilátero (D₃)</option>
+            <option value="4">Cuadrado (D₄)</option>
+          </select>
+        </div>
+      </div>
+      <figure class="figura-poligono">
+        <div id="act2-figura"></div>
+        <figcaption id="act2-descripcion" class="sr-solo"></figcaption>
+      </figure>
+      <div class="grupo-botones">
+        <button type="button" class="boton boton-primario" id="act2-r">Girar ($r$)</button>
+        <button type="button" class="boton boton-primario" id="act2-s">Reflejar ($s$)</button>
+        <button type="button" class="boton boton-secundario" id="act2-deshacer">Deshacer</button>
+        <button type="button" class="boton boton-secundario" id="act2-reiniciar">Reiniciar</button>
+      </div>
+      <div class="formula-dinamica" id="act2-estado"></div>
+      <p id="act2-orden" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      <p id="act2-pasos"></p>
+      <h4>La tabla de $D_n$</h4>
+      <p>
+        Al pulsar un botón, la tabla marca la fila (lo que acabas de hacer) y la columna (donde
+        estabas): la celda es el nuevo estado. Recuerda: $a \ast b$ es «primero $b$, luego $a$».
+      </p>
+      <div id="act2-tabla"></div>
+      <div class="formula-dinamica" id="act2-conmuta"></div>
+    </div>
+    <p>
+      <strong>Una conexión con permutaciones:</strong> cada simetría reacomoda los vértices, así
+      que es una permutación de ellos. Las seis simetrías del triángulo son <em>todas</em> las
+      permutaciones de tres objetos, así que $D_3 = S_3$: el grupo no abeliano más pequeño. En el
+      cuadrado, en cambio, solo 8 de las $24$ permutaciones de los vértices vienen de una simetría.
+    </p>
+  </section>
+
+  <!-- ===================== 6. KLEIN ===================== -->
+  <section id="klein" class="seccion-tema">
+    <h2>6. Dos grupos de cuatro elementos que no son iguales</h2>
+    <p>
+      Hay dos grupos de 4 elementos esencialmente distintos:
+    </p>
+    <ul>
+      <li>
+        $\mathbb{Z}_4$: los giros de un cuadrado ($0°, 90°, 180°, 270°$). Un giro de $90°$,
+        repetido, recorre todos los elementos.
+      </li>
+      <li>
+        El <strong>grupo de Klein</strong> $V_4 = \{e, a, b, c\}$: las simetrías de un
+        <em>rectángulo</em> que no es cuadrado (no hacer nada, reflejar horizontalmente, reflejar
+        verticalmente y girar $180°$). Aquí <strong>todo elemento es su propio inverso</strong>:
+        $a \ast a = e$.
+      </li>
+    </ul>
+
+    <h3 id="actividad3">Actividad 3: compara $\mathbb{Z}_4$ y $V_4$</h3>
+    <div class="caja">
+      <div class="grupo-botones">
+        <label class="opcion-casilla"><input type="checkbox" id="act3-diagonal"> Marcar la diagonal ($a \ast a$)</label>
+      </div>
+      <div class="rejilla-dos">
+        <div>
+          <h4>$(\mathbb{Z}_4, +)$</h4>
+          <div id="act3-tabla-z4"></div>
+          <p id="act3-ordenes-z4"></p>
+        </div>
+        <div>
+          <h4>$(V_4, \ast)$</h4>
+          <div id="act3-tabla-v4"></div>
+          <p id="act3-ordenes-v4"></p>
+        </div>
+      </div>
+      <p class="idea-previa">
+        Los dos son cuadrados latinos, pero la diagonal los distingue: en $V_4$ todo $a \ast a$ es
+        $e$; en $\mathbb{Z}_4$ no. Lo que cambia es el <strong>orden</strong> de los elementos
+        (cuántas veces hay que aplicarlos para volver a $e$).
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 7. PECULIARES ===================== -->
+  <section id="peculiares" class="seccion-tema">
+    <h2>7. Ejemplos peculiares</h2>
+    <p>Los grupos aparecen en lugares donde uno no los esperaría:</p>
+    <ul>
+      <li>
+        <strong>Dos elementos:</strong> $(\{1, -1\}, \cdot)$ es un grupo con tabla
+        $1\cdot1 = 1$, $1\cdot(-1) = -1$, $(-1)\cdot(-1) = 1$. Tiene la misma estructura que
+        $\mathbb{Z}_2$: «par/impar», «sí/no», «girar o no».
+      </li>
+      <li>
+        <strong>Bits:</strong> $(\{0, 1\}, \oplus)$ con $\oplus$ = XOR es el grupo $\mathbb{Z}_2$.
+        Más aún, las cadenas de $n$ bits con XOR bit a bit forman un grupo en que cada elemento es
+        su propio inverso (como $V_4$, que corresponde a $n = 2$). Lo retomaremos en espacios
+        vectoriales.
+      </li>
+      <li>
+        <strong>Raíces de la unidad:</strong> las $n$ raíces $n$-ésimas de $1$, con la
+        multiplicación de complejos, forman un grupo que se comporta como $\mathbb{Z}_n$: multiplicar
+        por $\omega$ es avanzar un paso en el reloj. Míralo en la
+        <a href="../numeros-complejos/index.html#actividad4">Actividad 4 de Números complejos</a>.
+      </li>
+      <li>
+        <strong>Logaritmos:</strong> $(\mathbb{R}, +)$ y $(\mathbb{R}_{>0}, \cdot)$ son «el mismo
+        grupo» vestido distinto: $e^{a+b} = e^a \cdot e^b$. La exponencial convierte sumas en
+        productos, y el logaritmo hace lo inverso (por eso existía la regla de cálculo).
+      </li>
+      <li>
+        <strong>El cubo de Rubik:</strong> sus movimientos forman un grupo. La acción «no hacer
+        nada» es el neutro, cada giro de cara se deshace con el giro contrario y encadenar giros
+        es la operación. Tiene unos $4.3 \times 10^{19}$ elementos, no es abeliano (girar la cara
+        superior y luego la frontal no es lo mismo que al revés) y se genera con solo seis giros
+        básicos. Que cualquier mezcla tenga solución es, en el fondo, la existencia de inversos.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== 8. NO-EJEMPLOS ===================== -->
+  <section id="noejemplos" class="seccion-tema">
+    <h2>8. No-ejemplos: cuando algo parece un grupo pero falla</h2>
+    <p>
+      Aprender qué <em>no</em> es un grupo sirve para entender cada axioma. Cada ejemplo de abajo
+      satisface la mayoría de los axiomas, pero falla en alguno, y siempre podemos dar un
+      <strong>contraejemplo concreto</strong>.
+    </p>
+    <ul>
+      <li>$(\mathbb{Z}, -)$: la resta no es asociativa ni tiene neutro de los dos lados.</li>
+      <li>$(\mathbb{N}, +)$: no hay números negativos, así que no hay inversos.</li>
+      <li>$(\mathbb{R}, \cdot)$: el $0$ no tiene inverso. Por eso se quita: $(\mathbb{R}\setminus\{0\}, \cdot)$ sí es grupo.</li>
+      <li>$(\mathbb{Z}_6\setminus\{0\}, \cdot)$: $2 \cdot 3 = 0$ se sale del conjunto (falla la cerradura).</li>
+    </ul>
+
+    <h3 id="actividad4">Actividad 4: checklist de axiomas</h3>
+    <div class="caja">
+      <p>
+        Elige un ejemplo y mira qué axiomas se cumplen (✔) y cuáles fallan (✘), con el motivo.
+        En los ejemplos finitos, la tabla aparece abajo y se calculó con código, no a mano.
+      </p>
+      <div id="act4-checklist"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 9. DEMOSTRACIONES ===================== -->
+  <section id="demostraciones" class="seccion-tema">
+    <h2>9. Demostraciones sencillas</h2>
+    <p>
+      Con los cuatro axiomas ya se puede demostrar mucho. Cada demostración dice primero qué idea
+      se va a usar.
+    </p>
+
+    <p class="idea-previa">Idea: si hubiera dos neutros, cada uno «actuaría» sobre el otro.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: el neutro es único</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Sean $e$ y $e'$ dos neutros de $G$. Como $e$ es neutro, $e \ast e' = e'$. Como $e'$ es
+          neutro, $e \ast e' = e$. Entonces $e' = e \ast e' = e$. $\blacksquare$
+        </p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: usar la asociatividad para «meter» el neutro y el otro inverso.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: el inverso es único</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Sean $b$ y $c$ dos inversos de $a$: $a \ast b = b \ast a = e$ y $a \ast c = c \ast a = e$.
+          Entonces
+        </p>
+        <p>
+          $$ b = b \ast e = b \ast (a \ast c) = (b \ast a) \ast c = e \ast c = c. $$
+        </p>
+        <p>Los pasos usan, en orden: neutro, $c$ inverso de $a$, asociatividad, $b$ inverso de $a$, neutro. $\blacksquare$</p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: multiplicar por el inverso de $a$ en ambos lados «cancela» $a$.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: cancelación (y por qué las tablas son cuadrados latinos)</summary>
+      <div class="contenido-demostracion">
+        <p>
+          <strong>Afirmación:</strong> si $a \ast b = a \ast c$, entonces $b = c$. Multiplicamos por
+          $a^{-1}$ a la izquierda:
+        </p>
+        <p>
+          $$ b = e \ast b = (a^{-1} \ast a) \ast b = a^{-1} \ast (a \ast b) = a^{-1} \ast (a \ast c) = (a^{-1} \ast a) \ast c = e \ast c = c. $$
+        </p>
+        <p>
+          <strong>Consecuencia para la tabla:</strong> en la fila de $a$ aparecen los resultados
+          $a \ast b$ para cada $b$. Si dos de ellos fueran iguales, la cancelación diría que los
+          $b$ son iguales. Así, en una fila <em>no hay repeticiones</em>; como la fila tiene tantas
+          entradas como elementos hay, cada elemento aparece <em>exactamente una vez</em>. Lo mismo
+          pasa en las columnas (cancelando por la derecha). $\blacksquare$
+        </p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: probar que $b^{-1} \ast a^{-1}$ funciona como inverso y usar la unicidad.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $(a \ast b)^{-1} = b^{-1} \ast a^{-1}$ («calcetines y zapatos»)</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Para deshacer «ponerse calcetines y luego zapatos» hay que quitarse primero los zapatos y
+          después los calcetines. En símbolos:
+        </p>
+        <p>
+          $$ (a \ast b) \ast (b^{-1} \ast a^{-1}) = a \ast (b \ast b^{-1}) \ast a^{-1} = a \ast e \ast a^{-1} = a \ast a^{-1} = e, $$
+        </p>
+        <p>
+          y de forma análoga $(b^{-1} \ast a^{-1}) \ast (a \ast b) = e$. Entonces
+          $b^{-1} \ast a^{-1}$ es un inverso de $a \ast b$, y como el inverso es único, es
+          <em>el</em> inverso. $\blacksquare$
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 10. EJERCICIOS ===================== -->
+  <section id="ejercicios" class="seccion-tema">
+    <h2>10. Mini-ejercicios</h2>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 1</h3>
+      <p>
+        Considera $\mathbb{Z}_7\setminus\{0\}$ con la multiplicación módulo $7$. Encuentra el
+        inverso de $3$ y el de $6$.
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Buscamos $b$ con $3b \equiv 1 \pmod 7$. Probando: $3 \cdot 5 = 15 = 2\cdot 7 + 1$, así que
+            $3^{-1} = 5$. Para el $6$: $6 \cdot 6 = 36 = 5\cdot 7 + 1$, así que $6^{-1} = 6$ (es su
+            propio inverso, porque $6 \equiv -1$). Los demás pares son $\{2, 4\}$ y el $1$ consigo
+            mismo.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 2</h3>
+      <p>
+        En $D_3$ calcula $r \ast s$ y $s \ast r$ usando la tabla de la Actividad 2 (elige el
+        triángulo). ¿Es $D_3$ abeliano?
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            En la tabla: $r \ast s = rs$, pero $s \ast r = r^{2}s$. Como $rs \neq r^{2}s$, el
+            orden importa y $D_3$ <strong>no es abeliano</strong>. Es el grupo no abeliano más
+            pequeño.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 3</h3>
+      <p>
+        En $\mathbb{Z}$ define $a \ast b = a + b + 1$. Demuestra que $(\mathbb{Z}, \ast)$ es un grupo
+        abeliano: encuentra el neutro y el inverso de $a$.
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <ul>
+            <li>Cerradura: $a + b + 1$ es entero.</li>
+            <li>Asociatividad: $(a \ast b) \ast c = a + b + c + 2 = a \ast (b \ast c)$.</li>
+            <li>Neutro: queremos $a \ast e = a + e + 1 = a$, es decir $e = -1$. (Verifica el otro lado.)</li>
+            <li>Inverso: queremos $a \ast b = -1$, es decir $b = -a - 2$, que es entero.</li>
+            <li>Conmutativa: $a + b + 1 = b + a + 1$.</li>
+          </ul>
+          <p>Es el grupo $(\mathbb{Z}, +)$ «desplazado»: el neutro es $-1$ en lugar de $0$.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 4 (con pista)</h3>
+      <p>
+        Sea $G$ un grupo donde $a \ast a = e$ para todo $a$. Demuestra que $G$ es abeliano.
+        <em>Pista: usa que $(a \ast b)^{-1} = b^{-1} \ast a^{-1}$ y que cada elemento es su propio inverso.</em>
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Como $x \ast x = e$, todo elemento es su propio inverso: $x^{-1} = x$. Entonces
+          </p>
+          <p>$$ a \ast b = (a \ast b)^{-1} = b^{-1} \ast a^{-1} = b \ast a. $$ $\blacksquare$</p>
+          <p>Este es el caso de $V_4$ y de las cadenas de bits con XOR.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== 11. CONEXIÓN ===================== -->
+  <section id="conexion" class="seccion-tema">
+    <h2>11. Conexión con el siguiente tema</h2>
+    <p>
+      Un grupo tiene <strong>una</strong> operación. Pero $\mathbb{Z}$, $\mathbb{Q}$ o $\mathbb{R}$
+      tienen dos: suma y producto, relacionadas por la distributividad. Con la suma forman un
+      grupo abeliano; con el producto, no (el $0$ no tiene inverso). Una estructura que junta las
+      dos operaciones se llama <strong>anillo</strong>: ese es el siguiente tema. Después veremos
+      los <strong>campos</strong> (anillos donde sí se puede dividir) y, con ellos, los
+      <strong>espacios vectoriales</strong>, que son grupos abelianos con escalares de un campo.
+    </p>
+    <figure>
+      <div id="diagrama-grupos"></div>
+      <figcaption>
+        Mapa de estructuras. Las que resaltamos con ★ (grupo y grupo abeliano) son las de este tema.
+      </figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="../../js/estructuras-comun.js"></script>
+<script src="js/grupos-actividad1.js"></script>
+<script src="js/grupos-actividad2.js"></script>
+<script src="js/grupos-actividad3.js"></script>
+<script src="js/grupos-actividad4.js"></script>
+<script src="js/grupos-main.js"></script>
+</body>
+</html>

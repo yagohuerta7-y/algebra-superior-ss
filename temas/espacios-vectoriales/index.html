@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espacios vectoriales — Álgebra Superior</title>
+<meta name="description" content="Espacios vectoriales para llegar a Álgebra Lineal con buenas bases: flechas en el plano, subespacios, polinomios como vectores, soluciones de y''+y=0, bits y ejemplos peculiares. Cinco actividades interactivas.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="../../css/estructuras.css">
+<link rel="stylesheet" href="css/espacios-vectoriales.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#motivacion">Motivación</a></li>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#r2">ℝ² y ℝ³</a></li>
+    <li><a href="#subespacios">Subespacios</a></li>
+    <li><a href="#polinomios">Polinomios</a></li>
+    <li><a href="#otros">Más ejemplos</a></li>
+    <li><a href="#peculiares">Peculiares</a></li>
+    <li><a href="#noejemplos">No-ejemplos</a></li>
+    <li><a href="#demostraciones">Demostraciones</a></li>
+    <li><a href="#ejercicios">Ejercicios</a></li>
+    <li><a href="#conexion">Conexión</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Espacios vectoriales</h1>
+  <p class="introduccion-tema">
+    Un espacio vectorial es cualquier lugar donde puedes <strong>sumar «vectores»</strong> y
+    <strong>estirarlos con escalares</strong> sin salirte. El próximo semestre lo estudiarás a fondo
+    en Álgebra Lineal; aquí buscamos que llegues con la intuición bien armada. Último tema de la
+    cadena <strong>grupos → anillos → campos → espacios vectoriales</strong>.
+  </p>
+
+  <!-- ===================== 1. MOTIVACIÓN ===================== -->
+  <section id="motivacion" class="seccion-tema">
+    <h2>1. Motivación: ¿qué es un «vector»?</h2>
+    <p>
+      En la preparatoria un vector es una flecha. Pero hay muchos objetos que se comportan igual que
+      las flechas: se pueden <em>sumar</em> entre sí y se pueden <em>multiplicar por un número</em>.
+      Los polinomios, las matrices, las funciones, las soluciones de ciertas ecuaciones
+      diferenciales, las cadenas de bits... Si demostramos algo usando solo esas dos operaciones,
+      valdrá para todos a la vez.
+    </p>
+    <p>
+      Ese es el mismo truco de los temas anteriores: en lugar de estudiar cada objeto, estudiamos la
+      <strong>estructura</strong> que comparten.
+    </p>
+  </section>
+
+  <!-- ===================== 2. DEFINICIÓN ===================== -->
+  <section id="definicion" class="seccion-tema">
+    <h2>2. Definición</h2>
+    <div class="caja caja-definicion">
+      <h3>Espacio vectorial sobre un campo $K$</h3>
+      <p>
+        Sea $K$ un campo (sus elementos son los <em>escalares</em>). Un <strong>espacio vectorial</strong>
+        sobre $K$ es un conjunto $V$ (sus elementos son los <em>vectores</em>) con:
+      </p>
+      <ul>
+        <li>una suma $+$ tal que <strong>$(V, +)$ es un grupo abeliano</strong> (neutro $\vec 0$, opuesto $-v$), y</li>
+        <li>un producto por escalar $K \times V \to V$, $(a, v) \mapsto av$, que cumple, para $a, b \in K$ y $u, v \in V$:</li>
+      </ul>
+      <ol>
+        <li>$a(u + v) = au + av$</li>
+        <li>$(a + b)v = av + bv$</li>
+        <li>$(ab)v = a(bv)$</li>
+        <li>$1\cdot v = v$</li>
+      </ol>
+    </div>
+    <p>
+      <strong>En palabras:</strong> los vectores se suman como en un grupo abeliano; los escalares
+      los estiran y el estiramiento se reparte bien sobre las sumas, se compone bien (primero $b$ y
+      luego $a$ es lo mismo que $ab$) y multiplicar por $1$ no hace nada.
+    </p>
+    <p>
+      Es justamente la conexión de toda la cadena: la <strong>suma</strong> viene del tema de grupos
+      (grupo abeliano) y los <strong>escalares</strong> vienen del tema de campos (para poder
+      «dividir» al despejar). Cuando $K = \mathbb{R}$ se dice «espacio vectorial real».
+    </p>
+  </section>
+
+  <!-- ===================== 3. R2 ===================== -->
+  <section id="r2" class="seccion-tema">
+    <h2>3. El ejemplo base: ℝ² y ℝ³</h2>
+    <p>
+      Los vectores de $\mathbb{R}^2$ son parejas $(x, y)$, que dibujamos como flechas que salen del
+      origen. Se suman coordenada por coordenada (regla del paralelogramo) y un escalar los estira:
+      $a(x, y) = (ax, ay)$. Si $a$ es negativo, la flecha cambia de sentido. En $\mathbb{R}^3$ ocurre lo
+      mismo con ternas $(x, y, z)$: sumar y estirar flechas en el espacio.
+    </p>
+    <p>
+      Combinar ambas operaciones da una <strong>combinación lineal</strong> $a\,u + b\,v$. Mueve las
+      puntas de $u$ y $v$ y cambia los escalares:
+    </p>
+
+    <h3 id="actividad1">Actividad 1: combinaciones lineales en $\mathbb{R}^2$</h3>
+    <div class="caja">
+      <div id="act1-plano"></div>
+      <div class="deslizadores">
+        <div>
+          <label for="act1-a">Escalar $a$ = <span id="act1-a-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act1-a" min="-3" max="3" step="0.5" value="1"></div>
+        </div>
+        <div>
+          <label for="act1-b">Escalar $b$ = <span id="act1-b-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act1-b" min="-3" max="3" step="0.5" value="1"></div>
+        </div>
+      </div>
+      <div class="grupo-botones">
+        <button type="button" class="boton boton-secundario" id="act1-suma">$u + v$</button>
+        <button type="button" class="boton boton-secundario" id="act1-doble">$2u$</button>
+        <button type="button" class="boton boton-secundario" id="act1-opuesto">$-v$</button>
+        <button type="button" class="boton boton-secundario" id="act1-resta">$u - v$</button>
+      </div>
+      <div class="formula-dinamica" id="act1-lectura"></div>
+      <p class="idea-previa">
+        Arrastra la punta de $u$ o de $v$ (también puedes enfocarla y usar las flechas del teclado).
+        Con $a = b = 1$ ves la regla del paralelogramo. ¿Qué lugares del plano puedes alcanzar
+        cambiando $a$ y $b$?
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 4. SUBESPACIOS ===================== -->
+  <section id="subespacios" class="seccion-tema">
+    <h2>4. Subespacios: espacios vectoriales dentro de otros</h2>
+    <div class="caja caja-definicion">
+      <h3>Subespacio</h3>
+      <p>
+        Un subconjunto $W \subseteq V$ es un <strong>subespacio</strong> si
+        (1) contiene a $\vec 0$, (2) $u, v \in W \Rightarrow u + v \in W$ y
+        (3) $a \in K,\ v \in W \Rightarrow av \in W$. Entonces $W$ es un espacio vectorial por derecho propio.
+      </p>
+    </div>
+    <p>
+      En $\mathbb{R}^2$, las rectas <em>que pasan por el origen</em> son subespacios; las que no pasan
+      por el origen no lo son. Compruébalo: toma dos puntos $u, v$ de la recta $y = mx + c$ y mira si
+      $u + v$ y $k\,u$ siguen en ella.
+    </p>
+
+    <h3 id="actividad2">Actividad 2: ¿recta por el origen o no?</h3>
+    <div class="caja">
+      <div id="act2-plano"></div>
+      <div class="deslizadores">
+        <div>
+          <label for="act2-m">Pendiente $m$ = <span id="act2-m-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act2-m" min="-2" max="2" step="0.5" value="1"></div>
+        </div>
+        <div>
+          <label for="act2-c">Ordenada $c$ = <span id="act2-c-valor">0</span></label>
+          <div class="fila-rango"><input type="range" id="act2-c" min="-2" max="2" step="0.5" value="0"></div>
+        </div>
+        <div>
+          <label for="act2-s">Punto $u$: abscisa = <span id="act2-s-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act2-s" min="-2" max="2" step="0.5" value="1"></div>
+        </div>
+        <div>
+          <label for="act2-t">Punto $v$: abscisa = <span id="act2-t-valor">-1.5</span></label>
+          <div class="fila-rango"><input type="range" id="act2-t" min="-2" max="2" step="0.5" value="-1.5"></div>
+        </div>
+        <div>
+          <label for="act2-k">Escalar $k$ = <span id="act2-k-valor">2</span></label>
+          <div class="fila-rango"><input type="range" id="act2-k" min="-2" max="2" step="0.5" value="2"></div>
+        </div>
+      </div>
+      <div class="grupo-botones">
+        <button type="button" class="boton boton-secundario" id="act2-por-origen">Recta por el origen ($c = 0$)</button>
+        <button type="button" class="boton boton-secundario" id="act2-desplazar">Recta desplazada ($c = 1.5$)</button>
+      </div>
+      <div class="formula-dinamica" id="act2-lectura"></div>
+      <p id="act2-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      <p class="idea-previa">
+        Los puntos que se salen de la recta se marcan con una <strong>cruz ✕</strong>; los que se
+        quedan, con un círculo. Si algún punto queda fuera del dibujo, igual se indica en la lectura.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 5. POLINOMIOS ===================== -->
+  <section id="polinomios" class="seccion-tema">
+    <h2>5. Polinomios como vectores: $P_n$</h2>
+    <p>
+      Sea $P_n$ el conjunto de polinomios de grado <strong>menor o igual</strong> a $n$ con
+      coeficientes reales. Por ejemplo, $P_3$ contiene a $1 - x + x^3$ y a $2x + x^2 - x^3$. Se suman
+      y se multiplican por un número como siempre: lo único que importa son los <em>coeficientes</em>.
+    </p>
+    <p>
+      Esto es profundo: un polinomio $a_0 + a_1x + \cdots + a_nx^n$ queda determinado por la lista
+      $(a_0, a_1, \dots, a_n)$, sus <strong>coordenadas</strong> respecto a la <strong>base</strong>
+      $\{1, x, x^2, \dots, x^n\}$. Sumar polinomios es sumar coordenadas, igual que en
+      $\mathbb{R}^{n+1}$. Por eso $P_n$ «es como» $\mathbb{R}^{n+1}$ (se dice que tiene
+      <em>dimensión</em> $n + 1$).
+    </p>
+
+    <h3 id="actividad3">Actividad 3: suma de polinomios = suma de coeficientes</h3>
+    <div class="caja">
+      <div id="act3-grafica"></div>
+      <div class="leyenda-curvas" aria-hidden="false">
+        <span class="leyenda-p">$p$ (línea continua azul)</span>
+        <span class="leyenda-q">$q$ (rayas)</span>
+        <span class="leyenda-suma">$p + q$ (línea gruesa verde)</span>
+        <span class="leyenda-esc">$c\,p$ (puntos)</span>
+      </div>
+      <div class="deslizadores" id="act3-sliders"></div>
+      <div class="deslizadores">
+        <div>
+          <label for="act3-c">Escalar $c$ = <span id="act3-c-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act3-c" min="-3" max="3" step="0.5" value="1"></div>
+        </div>
+      </div>
+      <div class="envoltura-tabla"><table class="tabla-coeficientes" id="act3-tabla"></table></div>
+      <div class="formula-dinamica" id="act3-lectura"></div>
+      <p class="idea-previa">
+        Fíjate en la fila de $p + q$: cada coeficiente es la suma de los coeficientes de arriba. Y la
+        fila de $c\,p$ es $p$ con cada coeficiente multiplicado por $c$.
+      </p>
+    </div>
+
+    <div class="caja caja-advertencia">
+      <h3>Cuidado: «grado exactamente $n$» no funciona</h3>
+      <p>
+        Los polinomios de grado <em>exactamente</em> $2$ <strong>no</strong> forman un espacio
+        vectorial: $x^2$ y $-x^2 + 1$ tienen grado $2$, pero su suma es $1$, que tiene grado $0$.
+        Tampoco contiene al polinomio cero. Por eso se pide «menor o igual».
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 6. OTROS EJEMPLOS ===================== -->
+  <section id="otros" class="seccion-tema">
+    <h2>6. Más ejemplos de espacios vectoriales reales</h2>
+    <ul>
+      <li>
+        <strong>Matrices $m \times n$:</strong> se suman entrada por entrada y se multiplican por un
+        escalar entrada por entrada. Es como $\mathbb{R}^{mn}$ (las entradas son las coordenadas).
+      </li>
+      <li>
+        <strong>Funciones $f : \mathbb{R} \to \mathbb{R}$:</strong> $(f + g)(x) = f(x) + g(x)$ y
+        $(cf)(x) = c\,f(x)$. Aquí cada «vector» es una función entera, y hay muchas más coordenadas
+        que en cualquier $\mathbb{R}^n$ (dimensión infinita).
+      </li>
+      <li>
+        <strong>Sucesiones</strong> $(a_1, a_2, a_3, \dots)$: se suman y escalan término a término.
+      </li>
+      <li>
+        <strong>Soluciones de una ecuación diferencial lineal homogénea.</strong> Las funciones $y$
+        con $y'' + y = 0$ forman un espacio vectorial. Si $y_1$ y $y_2$ son soluciones, también lo es
+        $y_1 + y_2$, y lo es $c\,y_1$. Se verá en detalle en Ecuaciones Diferenciales; la actividad
+        siguiente da la idea.
+      </li>
+    </ul>
+
+    <h3 id="actividad4">Actividad 4: soluciones de $y'' + y = 0$</h3>
+    <div class="caja">
+      <p>
+        Las funciones $\cos x$ y $\sin x$ cumplen $y'' + y = 0$ (la derivada segunda de cada una es
+        su opuesta). Toda solución es de la forma $y = A\cos x + B\sin x$, así que el conjunto de
+        soluciones se parece a $\mathbb{R}^2$: las coordenadas son $(A, B)$.
+      </p>
+      <div id="act4-grafica"></div>
+      <div class="leyenda-curvas">
+        <span class="leyenda-esc">$\cos x$ (puntos)</span>
+        <span class="leyenda-q">$\sin x$ (rayas)</span>
+        <span class="leyenda-suma">$y = A\cos x + B\sin x$ (línea gruesa)</span>
+      </div>
+      <div class="deslizadores">
+        <div>
+          <label for="act4-A">$A$ = <span id="act4-A-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act4-A" min="-3" max="3" step="0.5" value="1"></div>
+        </div>
+        <div>
+          <label for="act4-B">$B$ = <span id="act4-B-valor">1</span></label>
+          <div class="fila-rango"><input type="range" id="act4-B" min="-3" max="3" step="0.5" value="1"></div>
+        </div>
+      </div>
+      <div class="formula-dinamica" id="act4-lectura"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. PECULIARES ===================== -->
+  <section id="peculiares" class="seccion-tema">
+    <h2>7. Ejemplos peculiares</h2>
+    <ul>
+      <li>
+        <strong>Vectores de bits $\mathbb{F}_2^n$.</strong> Cadenas como $(1, 0, 1)$ con suma XOR bit a
+        bit y escalares $\{0, 1\}$ (el campo $\mathbb{F}_2$ del tema anterior). Hay $2^n$ vectores y cada
+        uno es su propio opuesto. Un uso real: las cadenas de $3$ bits con número par de unos,
+        $\{000, 011, 101, 110\}$, forman un <em>subespacio</em> ($011 + 101 = 110$) y se usan como
+        código de paridad para detectar errores.
+      </li>
+      <li>
+        <strong>$\mathbb{R}^+$ con operaciones «raras».</strong> Los números positivos con
+        $u \oplus v = uv$ (la «suma» es el producto) y $c \odot u = u^c$ (el «escalar» es una
+        potencia) forman un espacio vectorial real. El vector cero es el número $1$. La
+        multiplicación por escalar y la suma no tienen por qué ser las usuales: solo tienen que
+        cumplir los axiomas. (Compruébalo en la actividad 5.)
+      </li>
+      <li>
+        <strong>$\mathbb{C}$ como espacio vectorial: depende del campo de escalares.</strong>
+        Sobre $\mathbb{R}$, todo complejo es $a\cdot 1 + b\cdot i$: hacen falta dos coordenadas,
+        dimensión $2$ (es el plano). Sobre $\mathbb{C}$, todo complejo es $z \cdot 1$: basta una
+        coordenada, dimensión $1$. Mismo conjunto, otro campo de escalares, otra dimensión.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== 8. NO-EJEMPLOS ===================== -->
+  <section id="noejemplos" class="seccion-tema">
+    <h2>8. No-ejemplos y checklist</h2>
+    <p>
+      Para ser espacio vectorial hay que cumplir <em>todo</em>. Ejemplos que fallan: un «producto por
+      escalar» mal definido (como $c(x, y) = (cx, 0)$, que rompe $1v = v$); un conjunto que se sale
+      al operar (polinomios de grado exacto); un conjunto que no es cerrado bajo los escalares
+      ($\mathbb{Z}^2$ sobre $\mathbb{R}$); o una recta que no pasa por el origen.
+    </p>
+
+    <h3 id="actividad5">Actividad 5: checklist de axiomas de espacio vectorial</h3>
+    <div class="caja">
+      <p>
+        Elige un ejemplo y mira qué axiomas se cumplen (✔) o fallan (✘), con un contraejemplo
+        numérico. El campo de escalares está indicado en cada título.
+      </p>
+      <div id="act5-checklist"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 9. DEMOSTRACIONES ===================== -->
+  <section id="demostraciones" class="seccion-tema">
+    <h2>9. Demostraciones sencillas</h2>
+
+    <p class="idea-previa">Idea: escribir $0 = 0 + 0$ y usar la distributividad sobre escalares, como con anillos.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $0\cdot v = \vec 0$</summary>
+      <div class="contenido-demostracion">
+        <p>
+          $0\cdot v = (0 + 0)\cdot v = 0\cdot v + 0\cdot v$. Sumamos el opuesto de $0\cdot v$ a ambos
+          lados y obtenemos $\vec 0 = 0\cdot v$. $\blacksquare$
+        </p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: ver que $(-1)v$ suma $\vec 0$ con $v$ y usar que el opuesto es único (tema de grupos).</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $(-1)\cdot v = -v$</summary>
+      <div class="contenido-demostracion">
+        <p>
+          $v + (-1)v = 1\cdot v + (-1)\cdot v = (1 + (-1))\cdot v = 0\cdot v = \vec 0$. Entonces
+          $(-1)v$ es un opuesto de $v$ y, como el opuesto es único, $(-1)v = -v$. $\blacksquare$
+        </p>
+        <p>Así «restar un vector» es lo mismo que sumar su inverso multiplicado por $-1$: la flecha dada vuelta.</p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: operar con los coeficientes y comprobar que el grado no sube.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $P_n$ es cerrado bajo suma y producto por escalar</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Sean $p = a_0 + a_1x + \cdots + a_nx^n$ y $q = b_0 + b_1x + \cdots + b_nx^n$ en $P_n$ y $c$ real.
+        </p>
+        <p>
+          $$ p + q = (a_0 + b_0) + (a_1 + b_1)x + \cdots + (a_n + b_n)x^n, \qquad c\,p = ca_0 + ca_1x + \cdots + ca_nx^n. $$
+        </p>
+        <p>
+          Ambos tienen la forma de un polinomio con potencias de $x$ hasta $x^n$, así que están en
+          $P_n$. Además el polinomio $0$ está en $P_n$. Los demás axiomas se heredan de las
+          propiedades de la suma y el producto de números reales. $\blacksquare$
+        </p>
+        <p>
+          (¿Por qué falla «grado exactamente $n$»? Porque aquí los coeficientes $a_n + b_n$ pueden
+          sumar $0$, y el grado baja.)
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 10. EJERCICIOS ===================== -->
+  <section id="ejercicios" class="seccion-tema">
+    <h2>10. Mini-ejercicios</h2>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 1</h3>
+      <p>¿Es $W = \{(x, y, z) \in \mathbb{R}^3 : x + y + z = 0\}$ un subespacio de $\mathbb{R}^3$?</p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Sí. (1) $(0,0,0)$ cumple $0 + 0 + 0 = 0$. (2) Si $x + y + z = 0$ y $x' + y' + z' = 0$,
+            entonces $(x + x') + (y + y') + (z + z') = 0 + 0 = 0$. (3) Si $x + y + z = 0$, entonces
+            $cx + cy + cz = c\cdot 0 = 0$. Es un plano que pasa por el origen.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 2</h3>
+      <p>
+        Escribe las coordenadas de $p = 2 - x + 3x^2$ y $q = 1 + 4x$ respecto a la base
+        $\{1, x, x^2\}$ de $P_2$, y las de $p + q$ y $2p$.
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            $p \leftrightarrow (2, -1, 3)$, $q \leftrightarrow (1, 4, 0)$. Entonces
+            $p + q \leftrightarrow (3, 3, 3)$, o sea $3 + 3x + 3x^2$, y $2p \leftrightarrow (4, -2, 6)$,
+            o sea $4 - 2x + 6x^2$.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 3</h3>
+      <p>
+        En $(\mathbb{R}^+, \oplus, \odot)$ calcula $3 \oplus 4$, $2 \odot 3$ y el opuesto de $5$. ¿Cuál
+        es el vector cero?
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            $3 \oplus 4 = 3 \cdot 4 = 12$; $2 \odot 3 = 3^2 = 9$. El vector cero es $1$, porque
+            $u \oplus 1 = u \cdot 1 = u$. El opuesto de $5$ es $1/5$, porque $5 \oplus \tfrac{1}{5} = 1$.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 4</h3>
+      <p>
+        En $\mathbb{F}_2^3$ calcula $(1, 1, 0) + (0, 1, 1)$. ¿Cuántos vectores tiene $\mathbb{F}_2^n$?
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Sumando bit a bit con XOR: $(1 + 0,\ 1 + 1,\ 0 + 1) = (1, 0, 1)$. Cada una de las $n$
+            coordenadas puede ser $0$ o $1$, así que hay $2^n$ vectores.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== 11. CONEXIÓN ===================== -->
+  <section id="conexion" class="seccion-tema">
+    <h2>11. Cierre: lo que viene en Álgebra Lineal</h2>
+    <p>
+      Esta es la cadena completa: un <strong>grupo abeliano</strong> te da la suma de vectores; un
+      <strong>campo</strong> te da escalares con los que puedes dividir; y juntos forman un
+      <strong>espacio vectorial</strong>. En Álgebra Lineal estudiarás cuándo unos vectores generan todo
+      el espacio, cuántos hacen falta (<em>base</em> y <em>dimensión</em>) y las funciones que respetan
+      suma y escalares (<em>transformaciones lineales</em>, que son las matrices). Ya viste las
+      primeras coordenadas en $P_n$, en $\mathbb{C}$ sobre $\mathbb{R}$ y en las soluciones de $y'' + y = 0$.
+    </p>
+    <figure>
+      <div id="diagrama-ev"></div>
+      <figcaption>
+        Mapa de estructuras. Las ★ marcan las que intervienen: el espacio vectorial, con un grupo
+        abeliano de vectores y un campo de escalares.
+      </figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="../../js/estructuras-comun.js"></script>
+<script src="js/espacios-vectoriales-comun.js"></script>
+<script src="js/espacios-vectoriales-actividad1.js"></script>
+<script src="js/espacios-vectoriales-actividad2.js"></script>
+<script src="js/espacios-vectoriales-actividad3.js"></script>
+<script src="js/espacios-vectoriales-actividad4.js"></script>
+<script src="js/espacios-vectoriales-actividad5.js"></script>
+<script src="js/espacios-vectoriales-main.js"></script>
+</body>
+</html>

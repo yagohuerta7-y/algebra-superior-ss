@@ -1,0 +1,30 @@
+/* Estilos específicos del tema "Anillos" (lo compartido vive en css/estructuras.css) */
+
+.matrices-entrada {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+  justify-content: center;
+  margin: var(--espacio-2) 0;
+}
+
+.matriz-entrada {
+  display: grid;
+  grid-template-columns: repeat(2, 4.2rem);
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-left: 3px solid var(--color-texto);
+  border-right: 3px solid var(--color-texto);
+  border-radius: 8px;
+}
+
+.matriz-entrada input {
+  width: 100%;
+  text-align: center;
+}
+
+.nombre-matriz {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}

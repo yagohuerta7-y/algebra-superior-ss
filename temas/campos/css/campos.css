@@ -1,0 +1,49 @@
+/* Estilos específicos del tema "Campos" (lo compartido vive en css/estructuras.css) */
+
+.franja-inverso {
+  overflow-x: auto;
+  margin: var(--espacio-2) 0;
+}
+
+.franja-inverso table {
+  border-collapse: separate;
+  border-spacing: 3px;
+  margin: 0 auto;
+}
+
+.franja-inverso th,
+.franja-inverso td {
+  min-width: 2.4rem;
+  height: 2.4rem;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+  padding: 0 0.3em;
+}
+
+.franja-inverso th {
+  background: var(--color-fondo-alterno);
+}
+
+.franja-inverso td.es-uno {
+  background: var(--color-exito-suave);
+  border: 3px solid var(--color-exito);
+  font-weight: 700;
+}
+
+.franja-inverso td.es-uno::after {
+  content: " ✔";
+}
+
+.entradas-raiz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+  align-items: center;
+  justify-content: center;
+}
+
+.entradas-raiz input {
+  width: 5rem;
+  text-align: center;
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anillos — Álgebra Superior</title>
+<meta name="description" content="Anillos desde cero: dos operaciones que conviven, ejemplos clásicos y peculiares (matrices, enteros de Gauss, funciones continuas), divisores de cero y dominios enteros. Tres actividades interactivas.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/componentes.css">
+<link rel="stylesheet" href="../../css/estructuras.css">
+<link rel="stylesheet" href="css/anillos.css">
+</head>
+<body>
+
+<a class="saltar-enlace" href="#contenido-principal">Saltar al contenido</a>
+
+<header class="encabezado-sitio">
+  <div class="barra-encabezado">
+    <a class="marca-sitio" href="../../index.html">
+      <strong>Álgebra Superior</strong>
+      <span>Material de apoyo · UNAM</span>
+    </a>
+    <button id="boton-tema" class="boton-tema" type="button" aria-pressed="false">
+      <span aria-hidden="true">🌓</span>
+      <span class="etiqueta-tema">Modo oscuro</span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-tema" aria-label="Secciones del tema">
+  <ul>
+    <li><a href="#motivacion">Motivación</a></li>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#clasicos">Ejemplos clásicos</a></li>
+    <li><a href="#peculiares">Peculiares</a></li>
+    <li><a href="#divisores">Divisores de cero</a></li>
+    <li><a href="#matrices">Matrices</a></li>
+    <li><a href="#noejemplos">No-ejemplos</a></li>
+    <li><a href="#demostraciones">Demostraciones</a></li>
+    <li><a href="#ejercicios">Ejercicios</a></li>
+    <li><a href="#conexion">Conexión</a></li>
+  </ul>
+</nav>
+
+<main id="contenido-principal">
+  <h1>Anillos</h1>
+  <p class="introduccion-tema">
+    Los grupos tienen una operación. Pero los números con los que trabajamos todos los días
+    tienen dos, suma y producto, y se llevan bien entre sí. Un <strong>anillo</strong> es lo que
+    queda cuando abstraemos esa convivencia. Segundo tema de la cadena
+    <strong>grupos → anillos → campos → espacios vectoriales</strong>.
+  </p>
+
+  <!-- ===================== 1. MOTIVACIÓN ===================== -->
+  <section id="motivacion" class="seccion-tema">
+    <h2>1. Motivación: dos operaciones que conviven</h2>
+    <p>
+      En $\mathbb{Z}$ puedes sumar, restar y multiplicar, pero no siempre dividir ($1 \div 2$ ya
+      no es entero). Lo mismo pasa con los polinomios, con las matrices y con las horas de un
+      reloj. Todos estos sistemas tienen una suma que se porta como un grupo abeliano, un producto
+      y una regla que los conecta: la <strong>distributividad</strong>,
+      $a(b + c) = ab + ac$.
+    </p>
+    <p>
+      Un anillo es un lugar donde puedes <em>sumar, restar y multiplicar</em> con las reglas de
+      siempre. Lo que <strong>no</strong> se pide (y por eso hay tantos ejemplos distintos) es que
+      el producto sea conmutativo, que haya un $1$ ni que se pueda dividir.
+    </p>
+  </section>
+
+  <!-- ===================== 2. DEFINICIÓN ===================== -->
+  <section id="definicion" class="seccion-tema">
+    <h2>2. Definición</h2>
+    <div class="caja caja-definicion">
+      <h3>Anillo</h3>
+      <p>Un <strong>anillo</strong> es un conjunto $R$ con dos operaciones, $+$ y $\cdot$, tales que:</p>
+      <ol>
+        <li>$(R, +)$ es un <strong>grupo abeliano</strong>, con neutro $0$ y opuesto $-a$.</li>
+        <li>El producto es <strong>cerrado</strong> y <strong>asociativo</strong>: $(ab)c = a(bc)$.</li>
+        <li>Se cumple la <strong>distributividad</strong>: $a(b + c) = ab + ac$ y $(a + b)c = ac + bc$.</li>
+      </ol>
+    </div>
+    <p>
+      <strong>En palabras:</strong> la suma es un grupo conmutativo, el producto no se sale del
+      conjunto ni depende de los paréntesis, y multiplicar «reparte» la suma.
+    </p>
+    <p>Además, un anillo puede tener (o no) tres rasgos extra:</p>
+    <ul>
+      <li><strong>Con unidad:</strong> existe $1$ con $1 \cdot a = a \cdot 1 = a$.</li>
+      <li><strong>Conmutativo:</strong> $ab = ba$ para todos $a, b$.</li>
+      <li>
+        <strong>Dominio entero:</strong> es conmutativo, con unidad ($1 \neq 0$) y
+        <em>sin divisores de cero</em>: si $ab = 0$, entonces $a = 0$ o $b = 0$.
+      </li>
+    </ul>
+    <p>
+      <em>Nota:</em> algunos libros exigen que todo anillo tenga unidad. Aquí no lo pedimos, y
+      decimos «anillo con unidad» cuando la hay.
+    </p>
+  </section>
+
+  <!-- ===================== 3. CLÁSICOS ===================== -->
+  <section id="clasicos" class="seccion-tema">
+    <h2>3. Ejemplos clásicos</h2>
+    <ul>
+      <li>
+        <strong>$\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$</strong> con la suma y el
+        producto de siempre: conmutativos, con unidad.
+      </li>
+      <li>
+        <strong>$\mathbb{Z}_n$</strong> («aritmética del reloj»): ya vimos su suma en
+        <a href="../cifrado-cesar/index.html#grupo-zn">Cifrado César</a>. Ahora le agregamos el
+        producto módulo $n$. En $\mathbb{Z}_{12}$, por ejemplo, $5 \cdot 7 = 35 = 2\cdot 12 + 11$,
+        así que $5 \cdot 7 = 11$.
+      </li>
+      <li>
+        <strong>$\mathbb{Z}[x]$</strong>: polinomios con coeficientes enteros. Se suman y multiplican
+        como siempre: $(x + 1)(x - 1) = x^2 - 1$. Es conmutativo, con unidad ($1$) y un dominio
+        entero.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== 4. PECULIARES ===================== -->
+  <section id="peculiares" class="seccion-tema">
+    <h2>4. Ejemplos peculiares</h2>
+    <ul>
+      <li>
+        <strong>Matrices $2 \times 2$:</strong> forman un anillo con unidad (la matriz identidad),
+        pero <strong>no conmutativo</strong>. Lo verás en la Actividad 2.
+      </li>
+      <li>
+        <strong>Los enteros de Gauss $\mathbb{Z}[i] = \{a + bi : a, b \in \mathbb{Z}\}$:</strong>
+        números complejos con partes enteras. El producto no se sale: por ejemplo
+        $(1 + 2i)(3 - i) = 3 - i + 6i - 2i^2 = 5 + 5i$. Es un dominio entero que vive en la
+        <a href="../numeros-complejos/index.html">retícula de puntos enteros del plano complejo</a>.
+      </li>
+      <li>
+        <strong>Funciones continuas $C(\mathbb{R})$:</strong> funciones continuas de $\mathbb{R}$
+        en $\mathbb{R}$, con $(f + g)(x) = f(x) + g(x)$ y $(fg)(x) = f(x)\,g(x)$. Es conmutativo,
+        con unidad (la función constante $1$) y, sorprendentemente, <strong>tiene divisores de cero</strong>:
+        las funciones $f(x) = \max(x, 0)$ y $g(x) = \max(-x, 0)$ son continuas y distintas de cero,
+        pero $f \cdot g = 0$, porque nunca son positivas a la vez.
+      </li>
+      <li>
+        <strong>Los enteros pares $2\mathbb{Z}$:</strong> se pueden sumar y multiplicar sin salir
+        del conjunto, pero <strong>no tienen unidad</strong>: ningún par $u$ cumple $u \cdot 2 = 2$.
+        Es un ejemplo de anillo sin unidad.
+      </li>
+    </ul>
+    <div class="envoltura-tabla">
+      <table class="tabla-resumen">
+        <caption>¿Con unidad? ¿Conmutativo? ¿Dominio entero?</caption>
+        <thead>
+          <tr>
+            <th scope="col">Anillo</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Conmutativo</th>
+            <th scope="col">Dominio entero</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">$\mathbb{Z}$, $\mathbb{Z}[x]$, $\mathbb{Z}[i]$</th><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+          <tr><th scope="row">$2\mathbb{Z}$</th><td>No</td><td>Sí</td><td>No (no tiene unidad)</td></tr>
+          <tr><th scope="row">$\mathbb{Z}_n$</th><td>Sí</td><td>Sí</td><td>Solo si $n$ es primo</td></tr>
+          <tr><th scope="row">Matrices $2\times 2$</th><td>Sí</td><td>No</td><td>No</td></tr>
+          <tr><th scope="row">$C(\mathbb{R})$</th><td>Sí</td><td>Sí</td><td>No</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== 5. DIVISORES DE CERO ===================== -->
+  <section id="divisores" class="seccion-tema">
+    <h2>5. Divisores de cero y unidades</h2>
+    <p>
+      En $\mathbb{Z}$, si $ab = 0$ entonces $a = 0$ o $b = 0$. Parece obvio, pero no siempre pasa.
+      En $\mathbb{Z}_6$, $2 \cdot 3 = 6 = 0$ con $2 \neq 0$ y $3 \neq 0$. Decimos que $2$ y $3$ son
+      <strong>divisores de cero</strong>.
+    </p>
+    <p>
+      Por otro lado, una <strong>unidad</strong> es un elemento con inverso multiplicativo. En
+      $\mathbb{Z}$ solo $1$ y $-1$ son unidades. En $\mathbb{Z}_6$, $5 \cdot 5 = 25 = 1$, así que $5$
+      es unidad.
+    </p>
+
+    <h3 id="actividad1">Actividad 1: la tabla del producto en $\mathbb{Z}_n$</h3>
+    <div class="caja">
+      <div class="control-nm">
+        <div class="campo">
+          <label for="act1-n">Elige $n$</label>
+          <select id="act1-n"></select>
+        </div>
+      </div>
+      <div class="grupo-botones">
+        <label class="opcion-casilla"><input type="checkbox" id="act1-unidades" checked> Marcar unidades: pares con producto $1$ (●)</label>
+        <label class="opcion-casilla"><input type="checkbox" id="act1-divisores" checked> Marcar divisores de cero: producto $0$ con factores no nulos (◆)</label>
+      </div>
+      <div id="act1-tabla"></div>
+      <p id="act1-resumen" class="aviso aviso-info" role="status" aria-live="polite"></p>
+      <p class="idea-previa">
+        Compara $n = 5$ con $n = 6$. ¿Qué pasa con los ◆ cuando $n$ es primo? ¿Y cuándo no lo es?
+        Esto es justo lo que separa a los <em>campos</em>, el tema siguiente.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== 6. MATRICES ===================== -->
+  <section id="matrices" class="seccion-tema">
+    <h2>6. Un anillo no conmutativo: matrices $2 \times 2$</h2>
+    <p>
+      El producto de matrices es $\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}e&f\\g&h\end{pmatrix} = \begin{pmatrix}ae+bg & af+bh\\ ce+dg & cf+dh\end{pmatrix}$.
+      Sumar y multiplicar matrices cumple todos los axiomas de anillo, pero el orden importa.
+    </p>
+
+    <h3 id="actividad2">Actividad 2: $AB$ frente a $BA$</h3>
+    <div class="caja">
+      <div class="matrices-entrada">
+        <div>
+          <div class="nombre-matriz">$A$</div>
+          <div class="matriz-entrada" role="group" aria-label="Matriz A">
+            <input type="number" id="act2-a11" aria-label="A, fila 1 columna 1">
+            <input type="number" id="act2-a12" aria-label="A, fila 1 columna 2">
+            <input type="number" id="act2-a21" aria-label="A, fila 2 columna 1">
+            <input type="number" id="act2-a22" aria-label="A, fila 2 columna 2">
+          </div>
+        </div>
+        <div>
+          <div class="nombre-matriz">$B$</div>
+          <div class="matriz-entrada" role="group" aria-label="Matriz B">
+            <input type="number" id="act2-b11" aria-label="B, fila 1 columna 1">
+            <input type="number" id="act2-b12" aria-label="B, fila 1 columna 2">
+            <input type="number" id="act2-b21" aria-label="B, fila 2 columna 1">
+            <input type="number" id="act2-b22" aria-label="B, fila 2 columna 2">
+          </div>
+        </div>
+      </div>
+      <div class="grupo-botones">
+        <button type="button" class="boton boton-secundario" id="act2-clasico">Ejemplo clásico</button>
+        <button type="button" class="boton boton-secundario" id="act2-conmutan">Un par que conmuta</button>
+        <button type="button" class="boton boton-secundario" id="act2-identidad">Con la identidad</button>
+        <button type="button" class="boton boton-secundario" id="act2-azar">Al azar</button>
+      </div>
+      <div class="formula-dinamica" id="act2-resultado"></div>
+      <p id="act2-mensaje" class="aviso aviso-info" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ===================== 7. NO-EJEMPLOS ===================== -->
+  <section id="noejemplos" class="seccion-tema">
+    <h2>7. No-ejemplos y checklist</h2>
+    <p>
+      Para ser anillo hay que cumplir <em>todo</em> a la vez. Algunos candidatos fallan por
+      detalles: $(\mathbb{N}, +, \cdot)$ no tiene opuestos; $(\mathbb{R}^3, +, \times)$ con el producto
+      vectorial no es asociativo; y si usamos $a \ast b = a + b$ como «producto», no se distribuye
+      sobre la suma.
+    </p>
+
+    <h3 id="actividad3">Actividad 3: checklist de axiomas de anillo</h3>
+    <div class="caja">
+      <p>
+        Elige un ejemplo y mira qué axiomas se cumplen (✔) y cuáles fallan (✘). Los dos últimos
+        (unidad y conmutatividad) son <em>extras</em>: si fallan, sigue siendo anillo. En los
+        ejemplos finitos las tablas se calculan con código.
+      </p>
+      <div id="act3-checklist"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. DEMOSTRACIONES ===================== -->
+  <section id="demostraciones" class="seccion-tema">
+    <h2>8. Demostraciones sencillas</h2>
+
+    <p class="idea-previa">Idea: escribir $0$ como $0 + 0$ y usar la distributividad.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $0 \cdot a = 0$</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Como $0 + 0 = 0$, tenemos $0 \cdot a = (0 + 0) \cdot a = 0 \cdot a + 0 \cdot a$.
+          Sumamos $-(0 \cdot a)$ a los dos lados (existe, porque $(R, +)$ es grupo):
+        </p>
+        <p>$$ 0 = 0 \cdot a. \qquad \blacksquare $$</p>
+        <p>
+          Esto es válido en <em>cualquier</em> anillo: no hace falta unidad ni conmutatividad. Se
+          parece a la cancelación en grupos, pero aquí usamos la distributividad para ligar las dos
+          operaciones.
+        </p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: demostrar que $a \cdot (-b)$ suma $ab$ para dar $0$ y usar que el opuesto es único.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: $a \cdot (-b) = -(ab)$ y $(-a)(-b) = ab$</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Por la distributividad y por $a \cdot 0 = 0$:
+          $ab + a(-b) = a\,(b + (-b)) = a \cdot 0 = 0$. Entonces $a(-b)$ es un opuesto de $ab$ y,
+          como el opuesto es único (unicidad del inverso en un grupo), $a(-b) = -(ab)$.
+        </p>
+        <p>
+          Aplicándolo otra vez: $(-a)(-b) = -\big(a(-b)\big) = -\big(-(ab)\big) = ab$. $\blacksquare$
+        </p>
+        <p>Por eso «menos por menos es más»: no es una regla que haya que memorizar, es una consecuencia de los axiomas.</p>
+      </div>
+    </details>
+
+    <p class="idea-previa">Idea: pasar todo a un lado para convertir la cancelación en una pregunta sobre productos igual a cero.</p>
+    <details class="demostracion">
+      <summary>Ver demostración: en un dominio entero se puede cancelar</summary>
+      <div class="contenido-demostracion">
+        <p>
+          Sea $R$ un dominio entero, $a \neq 0$ y $ab = ac$. Entonces $ab - ac = a(b - c) = 0$.
+          Como no hay divisores de cero y $a \neq 0$, debe ser $b - c = 0$, es decir $b = c$. $\blacksquare$
+        </p>
+        <p>
+          En $\mathbb{Z}_6$ esto falla: $2 \cdot 1 = 2 = 2 \cdot 4$ (porque $8 = 2 \bmod 6$), pero
+          $1 \neq 4$. Ahí se nota el costo de tener divisores de cero.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 9. EJERCICIOS ===================== -->
+  <section id="ejercicios" class="seccion-tema">
+    <h2>9. Mini-ejercicios</h2>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 1</h3>
+      <p>En $\mathbb{Z}_8$, encuentra todas las unidades y todos los divisores de cero.</p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Unidades: $1, 3, 5, 7$ (por ejemplo $3 \cdot 3 = 9 = 1$ y $5 \cdot 5 = 25 = 1$).
+            Divisores de cero: $2, 4, 6$ (por ejemplo $2 \cdot 4 = 8 = 0$ y $4 \cdot 4 = 16 = 0$).
+            Cada elemento no nulo es una cosa o la otra. Compruébalo con la Actividad 1 ($n = 8$).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 2</h3>
+      <p>
+        En un anillo conmutativo $(a + b)^2 = a^2 + 2ab + b^2$. Con $A = \begin{pmatrix}1&1\\0&1\end{pmatrix}$ y
+        $B = \begin{pmatrix}1&0\\1&1\end{pmatrix}$, ¿se cumple $(A + B)^2 = A^2 + 2AB + B^2$?
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Calculando: $(A + B)^2 = \begin{pmatrix}2&1\\1&2\end{pmatrix}^2 = \begin{pmatrix}5&4\\4&5\end{pmatrix}$,
+            mientras que $A^2 + 2AB + B^2 = \begin{pmatrix}6&4\\4&4\end{pmatrix}$. No son iguales.
+          </p>
+          <p>
+            La razón: en general $(A + B)^2 = A^2 + AB + BA + B^2$, y la fórmula del binomio
+            necesita $AB = BA$ para juntar los dos términos del medio.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 3</h3>
+      <p>
+        Demuestra que $2\mathbb{Z}$ es un anillo sin unidad.
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            La suma de pares es par, $0$ es par y el opuesto de un par es par, así que $(2\mathbb{Z}, +)$
+            es grupo abeliano. El producto de pares es par; la asociatividad y la distributividad se
+            heredan de $\mathbb{Z}$. Si hubiera unidad $u$, tendríamos $u \cdot 2 = 2$, es decir
+            $u = 1$, que no es par. Contradicción: no tiene unidad.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <div class="caja caja-enunciado">
+      <h3>Ejercicio 4 (con pista)</h3>
+      <p>
+        Sea $f(x) = \max(x, 0)$ y $g(x) = \max(-x, 0)$. Comprueba que $fg = 0$ aunque $f \neq 0$ y
+        $g \neq 0$. <em>Pista: evalúa en $x = 2$, en $x = -2$ y en $x = 0$.</em>
+      </p>
+      <details class="solucion">
+        <summary>Ver solución</summary>
+        <div class="contenido-solucion">
+          <p>
+            Si $x > 0$: $f(x) = x$ pero $g(x) = 0$. Si $x < 0$: $f(x) = 0$. Si $x = 0$ ambas valen
+            $0$. En todos los casos $f(x)\,g(x) = 0$. Pero $f(2) = 2 \neq 0$ y $g(-2) = 2 \neq 0$, así
+            que ninguna es la función cero.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== 10. CONEXIÓN ===================== -->
+  <section id="conexion" class="seccion-tema">
+    <h2>10. Conexión con el siguiente tema</h2>
+    <p>
+      Un anillo te deja sumar, restar y multiplicar. ¿Y <strong>dividir</strong>? Para dividir entre
+      $a$ hace falta que $a$ tenga inverso multiplicativo, es decir, que sea una unidad. En $\mathbb{Z}$
+      casi nadie lo es; en $\mathbb{Z}_6$ solo $1$ y $5$. Un <strong>campo</strong> es un anillo
+      conmutativo en el que todo elemento distinto de cero es unidad. Entonces ya no hay divisores de
+      cero, y se puede dividir como en $\mathbb{Q}$ o $\mathbb{R}$. Ese es el siguiente tema.
+    </p>
+    <figure>
+      <div id="diagrama-anillos"></div>
+      <figcaption>
+        Mapa de estructuras. Con ★ marcamos las de este tema: anillo, anillo conmutativo y dominio entero.
+      </figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="pie-sitio">
+  <div>
+    <p>
+      Material elaborado como servicio social para el curso de Álgebra Superior.
+      No se recolecta ningún dato de quienes usan este sitio.
+    </p>
+  </div>
+</footer>
+
+<script src="../../vendor/katex/katex.min.js"></script>
+<script src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../js/comun.js"></script>
+<script src="../../js/estructuras-comun.js"></script>
+<script src="js/anillos-actividad1.js"></script>
+<script src="js/anillos-actividad2.js"></script>
+<script src="js/anillos-actividad3.js"></script>
+<script src="js/anillos-main.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+/* Estilos específicos del tema "Espacios vectoriales" (lo compartido vive en css/estructuras.css) */
+
+.plano-vec,
+.grafica-svg {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: var(--espacio-2) auto;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  touch-action: none;
+}
+
+.ev-rejilla {
+  stroke: var(--color-borde);
+  stroke-width: 1;
+}
+
+.ev-eje {
+  stroke: var(--color-texto-tenue);
+  stroke-width: 1.6;
+}
+
+.ev-marca {
+  fill: var(--color-texto-tenue);
+  font-size: 10px;
+}
+
+.ev-flecha {
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.ev-cabeza {
+  stroke: none;
+}
+
+.ev-u { stroke: var(--color-primario); fill: var(--color-primario); }
+.ev-v { stroke: var(--color-acento-texto); fill: var(--color-acento-texto); }
+.ev-res { stroke: var(--color-exito); fill: var(--color-exito); }
+.ev-gris { stroke: var(--color-texto-tenue); fill: var(--color-texto-tenue); }
+.ev-error { stroke: var(--color-error); fill: var(--color-error); }
+
+.ev-punteada {
+  stroke-dasharray: 6 5;
+  stroke-width: 2;
+}
+
+.ev-guia {
+  stroke: var(--color-texto-tenue);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+  fill: none;
+}
+
+.ev-etiqueta {
+  font-size: 14px;
+  font-weight: 700;
+  stroke: none;
+}
+
+.ev-recta {
+  stroke: var(--color-secundario);
+  stroke-width: 3;
+  fill: none;
+}
+
+.ev-mango-zona {
+  fill: transparent;
+  cursor: grab;
+}
+
+.ev-mango:focus-visible .ev-mango-zona,
+.ev-mango:hover .ev-mango-zona {
+  fill: var(--color-acento-suave);
+  stroke: var(--color-foco);
+  stroke-width: 2;
+}
+
+.ev-mango:focus {
+  outline: none;
+}
+
+.ev-curva {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.curva-p { stroke: var(--color-primario); }
+.curva-q { stroke: var(--color-acento-texto); stroke-dasharray: 8 5; }
+.curva-suma { stroke: var(--color-exito); stroke-width: 4; }
+.curva-esc { stroke: var(--color-texto-tenue); stroke-dasharray: 2 5; }
+
+.leyenda-curvas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+.leyenda-curvas span::before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 0;
+  border-top: 4px solid currentColor;
+  vertical-align: middle;
+  margin-right: 0.4em;
+}
+
+.leyenda-p { color: var(--color-primario); }
+.leyenda-q { color: var(--color-acento-texto); }
+.leyenda-q::before { border-top-style: dashed !important; }
+.leyenda-suma { color: var(--color-exito); }
+.leyenda-esc { color: var(--color-texto-tenue); }
+.leyenda-esc::before { border-top-style: dotted !important; }
+
+.deslizadores {
+  display: grid;
+  gap: var(--espacio-1) var(--espacio-3);
+  grid-template-columns: 1fr;
+  margin: var(--espacio-2) 0;
+}
+
+@media (min-width: 640px) {
+  .deslizadores {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.deslizadores label {
+  display: block;
+  font-weight: 600;
+}
+
+.tabla-coeficientes {
+  border-collapse: collapse;
+  margin: var(--espacio-2) auto;
+}
+
+.tabla-coeficientes th,
+.tabla-coeficientes td {
+  border: 1px solid var(--color-borde);
+  padding: 0.4em 0.8em;
+  text-align: center;
+  min-width: 3.2rem;
+}
+
+.tabla-coeficientes thead th,
+.tabla-coeficientes tbody th {
+  background: var(--color-fondo-alterno);
+}
+
+.tabla-coeficientes .fila-suma td,
+.tabla-coeficientes .fila-suma th {
+  font-weight: 700;
+  border-top-width: 3px;
+}
