@@ -16,22 +16,6 @@ window.TEMAS = [
     orden: 1
   },
   {
-    id: "induccion",
-    titulo: "Inducción matemática",
-    descripcionCorta: "Próximamente: el principio de inducción y sus variantes.",
-    ruta: null,
-    estado: "proximamente",
-    orden: 2
-  },
-  {
-    id: "conjuntos-relaciones",
-    titulo: "Conjuntos y relaciones",
-    descripcionCorta: "Próximamente: relaciones de equivalencia y de orden.",
-    ruta: null,
-    estado: "proximamente",
-    orden: 3
-  },
-  {
     id: "permutaciones",
     titulo: "Grupo de permutaciones",
     descripcionCorta:
